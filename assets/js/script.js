@@ -2,12 +2,12 @@ const canvas = document.getElementById("the_canvas");
 const ctx = canvas.getContext("2d");
 canvas.width = 500;
 canvas.height = 500;
-
+ctx.imageSmoothingEnabled = false;  //makes the pixelart assets crisp
 let clock = new Image();
 clock.src = "assets/img/clock.png"
 
 
-let clockContainer = document.getElementById("clockContainer")
+
 
 
 
@@ -30,6 +30,7 @@ function GameObject(spritesheet, x, y, width, height){
 
 
 let player = new GameObject(chicken, 5, 5, 64, 64)
+
 
 
 
