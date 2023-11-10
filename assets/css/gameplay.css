@@ -1,0 +1,35 @@
+canvas {
+    
+    display: block;
+    outline:1px solid;
+    width: 500px;
+    height: 500px;
+    text-align: center;
+    margin:auto;
+    
+}
+
+#clockContainer{
+
+    width: 40vw;
+    height: 40vh;
+    background-size: 100%;
+    background-color: black;
+    margin:auto;
+    background-image:url("https://as2.ftcdn.net/v2/jpg/05/49/44/57/1000_F_549445730_K1wyhAhML577zXK1ElDsqdxGeicomb20.webp");
+    background-size: 100%;
+
+}
+
+#clockHand {
+    position: absolute;
+    background: black;
+    border-radius: 10px;
+    transform-origin: bottom;
+    width: 1.8%;
+    height: 15%;
+    top: 60%;
+    left: 48.85%;
+}
+
+

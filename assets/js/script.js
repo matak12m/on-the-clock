@@ -1,7 +1,13 @@
 const canvas = document.getElementById("the_canvas");
 const ctx = canvas.getContext("2d");
-canvas.width = 800;
-canvas.height = 800;
+canvas.width = 500;
+canvas.height = 500;
+
+let clock = new Image();
+clock.src = "assets/img/clock.png"
+
+
+let clockContainer = document.getElementById("clockContainer")
 
 
 
