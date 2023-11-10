@@ -1,0 +1,34 @@
+canvas {
+    float: left;
+    display: inline;
+    outline:1px solid;
+    width: 800px;
+    height: 800px;
+    text-align: center;
+    
+}
+
+form {
+    float: left;
+    width: 300;
+    height: 100;
+}
+
+button{
+    width:100px;
+    height:20px;
+}
+
+.mobileButton{
+    background-color: palegreen;
+    width: 300;
+    height:100;
+
+}
+
+.browserButton{
+    background-color: tomato;
+    width:300;
+    height:100;
+
+}
