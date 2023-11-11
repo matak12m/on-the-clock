@@ -2,12 +2,22 @@ canvas {
     
     display: block;
     outline:1px solid;
-    width: 500px;
-    height: 500px;
+    width: 50vh;
+    height: 50vh;
     text-align: center;
     margin:auto;
     
 }
+
+div {
+    border-color: saddlebrown;
+    background-color: sandybrown;
+    font-size: 25px;
+    text-align: center;
+    border-radius: 10px;
+    border-style: solid;
+}
+
 
 #clockContainer {
     width: 200px;
@@ -21,7 +31,7 @@ canvas {
 #clockHand {
     position: relative;
     background: black;
-    border-radius: 10px;
+    border-style: none;
     transform-origin: bottom;
     width: 5%;
     height: 30%;
@@ -29,6 +39,28 @@ canvas {
     left: 47.5%;
 
 
+}
+
+
+#textContainer {
+ 
+    width: 50vh;
+    height: 15vh;
+    margin: auto;
+}
+
+#mainTextBox {
+    width: 50vh;
+    height: 7vh;
+    margin: auto;
+    float: left;
+}
+
+.textChoice {
+    float:left;
+    width: 15vh;
+    height: 7vh;
+    
 }
 
 
