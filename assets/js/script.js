@@ -3,20 +3,26 @@ const ctx = canvas.getContext("2d");
 canvas.width = 500;
 canvas.height = 500;
 ctx.imageSmoothingEnabled = false;  //makes the pixelart assets crisp
-let clock = new Image();
-clock.src = "assets/img/clock.png"
+
+
+
+//set up map tile system - 3x3 grid of tiles.
+const mapTiles =
+[
+[1, 2, 3],
+[4, 5, 6],
+[7, 8, 9],];
+
+mapIndexX = 0;
+mapIndexY = 0;
+
+
+let currentMapTile = mapTiles[mapIndexY][mapIndexX];
 
 
 
 
 
-
-
-
-
-let chicken = new Image();
-
-chicken.src = "assets/img/chicken.png"
 
 //function that holds data about all game objects regarding how theyre drawn
 function GameObject(spritesheet, x, y, width, height){
@@ -28,6 +34,9 @@ function GameObject(spritesheet, x, y, width, height){
 
 }
 
+let chicken = new Image();
+
+chicken.src = "assets/img/chicken.png"
 
 let player = new GameObject(chicken, 5, 5, 64, 64)
 
@@ -89,41 +98,70 @@ let frameCount = 0;
 let playerDirection = 0;
 function update() {
 
-    
 
-    if (gamerInput.action === "Up") {    //moves the player, changes the direction, which is used for animating the farmer, and upticks framecount if the player is moving
-        
-        player.y --; 
+    movePlayer();
+
+    if (player.x <5 || player.y<5 || player.x + player.width >= canvas.width || player.y + player.height >= canvas.height ){  //checks for collision with canvas sides
+        switchMapTile();
+    }
+ 
+}
+
+
+
+
+
+function movePlayer() {
+    if (gamerInput.action === "Up" && player.y > 0) {    //moves the player, changes the direction, which is used for animating the farmer, and upticks framecount if the player is moving
+
+        player.y -= 5;
         playerDirection = 2;
         frameCount++;
-    } else if (gamerInput.action === "Down") {
-        
-        player.y ++; 
+    } else if (gamerInput.action === "Down" && player.y + player.height < canvas.height) {
+
+        player.y += 5;
         playerDirection = 0;
         frameCount++;
-    } else if (gamerInput.action === "Left") {
-        
-        player.x --; 
+    } else if (gamerInput.action === "Left" && player.x > 0) {
+
+        player.x -= 5;
         playerDirection = 1;
         frameCount++;
-    } else if (gamerInput.action === "Right") {
-        
-        player.x ++; 
+    } else if (gamerInput.action === "Right" && player.x + player.width < canvas.width) {
+
+        player.x += 5;
         playerDirection = 3;
         frameCount++;
     } 
-    
+
+}
 
 
-    if (player.x <0 || player.y<0 || player.x + player.width >= canvas.width || player.y + player.height >= canvas.height){  //checks for collision with canvas sides
-        body.style.backgroundColor = "red";
+
+//checks if the player can move onto a different tile.
+function switchMapTile() {
+    if (player.x < 5 && mapIndexX > 0) {
+        player.x = canvas.width - (player.width +10);
+        mapIndexX--;
     }
-    else {
-        body.style.backgroundColor = "white";
+    else if (player.x + player.width >= canvas.width && mapIndexX < 2) {
+        player.x = 10;
+        mapIndexX++;
     }
+    else if (player.y < 5 && mapIndexY > 0) {
+        player.y = canvas.height - (player.height + 10);
+        mapIndexY--;
+    }
+    else if (player.y + player.height >= canvas.height && mapIndexY < 2) {
+        player.y = 10;
+        mapIndexY++;
+    }
+
+    currentMapTile = mapTiles[mapIndexY][mapIndexX]
+
+
+    console.log(mapIndexX, mapIndexY)
     
-
-
 }
 
 
