@@ -13,7 +13,7 @@ ctx.imageSmoothingEnabled = false;  //makes the pixelart assets crisp
 
 
 //function that holds data about all game objects regarding how theyre drawn
-function GameObject(name, spritesheet, x, y, width, height, mapIndexX, mapIndexY){
+function GameObject(name, spritesheet, x, y, width, height, mapIndexX, mapIndexY, absenceTime){
     this.name = name;
     this.spritesheet = spritesheet;
     this.x = x;
@@ -22,19 +22,20 @@ function GameObject(name, spritesheet, x, y, width, height, mapIndexX, mapIndexY
     this.height = height;
     this.mapIndexX = mapIndexX;
     this.mapIndexY = mapIndexY;
+    this.absenceTime = absenceTime;
 
 }
 
-function ObjectData(text, ) {
 
-}
 
 let chicken = new Image();
-
+let parsnip = new Image();
 chicken.src = "assets/img/chicken.png"
+parsnip.src = "assets/img/parsnip.png"
 
-let player = new GameObject("player", chicken, 5, 5, 64, 64, 0, 0);
-let pubFriend = new GameObject("pubFriend", chicken, 200, 300, 64, 64, 1, 0);
+
+let player = new GameObject("player", chicken, 5, 5, 64, 64, 0, 0, 0);
+let pubFriend = new GameObject("pubFriend", chicken, 200, 300, 64, 64, 1, 0, "morning");
 
 let interactArray = [pubFriend];
 
@@ -142,7 +143,7 @@ function manageInput() {
     } 
     else if(gamerInput.action === "Interact") {
         for (i = 0; i < interactArray.length; i++){
-            if (interactArray[i].mapIndexX == player.mapIndexX && interactArray[i].mapIndexY == player.mapIndexY && isCollide(interactArray[i], player) ) {
+            if (interactArray[i].mapIndexX == player.mapIndexX && interactArray[i].mapIndexY == player.mapIndexY && isCollide(interactArray[i], player && interactArray[i].absenceTime != time) ) {
                 interact(interactArray[i]);
                 break;
             }
@@ -164,7 +165,16 @@ function isCollide(a, b) {
 
 // intracts with the NPC
 function interact(NPC) {
-    console.log("interacting with " + NPC.name)
+    console.log("interacting with " + NPC.name);
+    let isAtCampfire = false;
+    if (NPC.mapIndexX == 0 && NPC.mapIndexY == 0) {
+        isAtCampfire = true;
+    }
+
+
+    showDialogue(NPC.name, isAtCampfire);
+
+    
 
 
 
@@ -212,6 +222,8 @@ function draw() {
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+    drawBackground(player.mapIndexX, player.mapIndexY);
+
 
  if (checkOnTile(pubFriend)) {
         ctx.drawImage(pubFriend.spritesheet, pubFriend.x, pubFriend.y, pubFriend.width, pubFriend.height);
@@ -230,13 +242,24 @@ function draw() {
 //returns true if the player is on the same tile as the object
 function checkOnTile(object) {
     
-    if (object.mapIndexX == player.mapIndexX && object.mapIndexY == player.mapIndexY) {
+    if (object.mapIndexX == player.mapIndexX && object.mapIndexY == player.mapIndexY && object.absenceTime != time) {
         return 1;
     }
     else {
         return 0;
     }
 }
+
+//draws the background of the tile the player is on.
+function drawBackground(mapX, mapY) {
+    if (mapX == 0 && mapY == 0) {
+        ctx.drawImage(parsnip, 200, 200, 40, 40);
+    }
+
+
+
+}
+
 
 
 //the main gameloop

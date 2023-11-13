@@ -8,8 +8,8 @@ clockHand.addEventListener("mouseover", preventRotation);
 clockHand.addEventListener("mouseout", preventRotationStop)
 
 let canRotate = 1;
-let degrees = -90; //global so it can be read by the gameplay script.
-
+let degrees = 0; //global so it can be read by the gameplay script.
+let time = "morning";
 
 
 
@@ -21,7 +21,10 @@ function mouseDown() {
 
 function mouseUp() {
     clockContainer.removeEventListener("mousemove", rotate)
+    determineTime();
 }
+
+
 
 
 
@@ -73,3 +76,18 @@ function getAngleDegrees() {
     return degrees + "deg";
 }
 
+
+function determineTime(){
+    if (degrees <  90){ 
+        time = "morning";
+    }
+    else if (degrees < 180) {
+        time =  "afternoon";
+    }
+    else if (degrees < 270) {
+        time = "evening";
+    }
+    else {
+        time = "night";
+    }
+}

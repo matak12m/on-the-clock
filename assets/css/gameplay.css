@@ -47,12 +47,14 @@ div {
     width: 50vh;
     height: 17vh;
     margin: auto;
+    visibility:hidden;
 }
 
 #mainTextBox {
     width: 49vh;
     height: 7vh;
     margin: 5px auto;
+    visibility:hidden;
 
 }
 
@@ -64,5 +66,6 @@ div {
     margin-bottom: 10px auto;
     margin-left: 10px auto;
     margin-right: 10px auto;
+    visibility:hidden;
     
 }
