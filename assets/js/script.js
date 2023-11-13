@@ -6,18 +6,6 @@ ctx.imageSmoothingEnabled = false;  //makes the pixelart assets crisp
 
 
 
-//set up map tile system - 3x3 grid of tiles.
-const mapTiles =
-[
-[1, 2, 3],
-[4, 5, 6],
-[7, 8, 9],];
-
-mapIndexX = 0;
-mapIndexY = 0;
-
-
-let currentMapTile = mapTiles[mapIndexY][mapIndexX];
 
 
 
@@ -25,12 +13,19 @@ let currentMapTile = mapTiles[mapIndexY][mapIndexX];
 
 
 //function that holds data about all game objects regarding how theyre drawn
-function GameObject(spritesheet, x, y, width, height){
+function GameObject(name, spritesheet, x, y, width, height, mapIndexX, mapIndexY){
+    this.name = name;
     this.spritesheet = spritesheet;
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
+    this.mapIndexX = mapIndexX;
+    this.mapIndexY = mapIndexY;
+
+}
+
+function ObjectData(text, ) {
 
 }
 
@@ -38,9 +33,10 @@ let chicken = new Image();
 
 chicken.src = "assets/img/chicken.png"
 
-let player = new GameObject(chicken, 5, 5, 64, 64)
+let player = new GameObject("player", chicken, 5, 5, 64, 64, 0, 0);
+let pubFriend = new GameObject("pubFriend", chicken, 200, 300, 64, 64, 1, 0);
 
-
+let interactArray = [pubFriend];
 
 
 //function that hold the current input action as a string
@@ -59,6 +55,7 @@ function input(event) {
    
     //set the string to a different value depending on the event
     if (event.type === "keydown") {
+        
         switch (event.key) {
             case "w":
                 gamerInput = new GamerInput("Up")
@@ -84,6 +81,9 @@ function input(event) {
             case "D":
                 gamerInput = new GamerInput("Right")
                 break;
+            case " ": 
+                gamerInput = new GamerInput("Interact")
+                break;
             default: 
                 gamerInput = new GamerInput("None")
         }
@@ -98,20 +98,27 @@ let frameCount = 0;
 let playerDirection = 0;
 function update() {
 
-
-    movePlayer();
+    if (gamerInput != "None"){
+    manageInput();
+    }
+    
 
     if (player.x <5 || player.y<5 || player.x + player.width >= canvas.width || player.y + player.height >= canvas.height ){  //checks for collision with canvas sides
         switchMapTile();
     }
  
+    
+
 }
 
 
 
 
 
-function movePlayer() {
+
+
+
+function manageInput() {
     if (gamerInput.action === "Up" && player.y > 0) {    //moves the player, changes the direction, which is used for animating the farmer, and upticks framecount if the player is moving
 
         player.y -= 5;
@@ -133,6 +140,38 @@ function movePlayer() {
         playerDirection = 3;
         frameCount++;
     } 
+    else if(gamerInput.action === "Interact") {
+        for (i = 0; i < interactArray.length; i++){
+            if (interactArray[i].mapIndexX == player.mapIndexX && interactArray[i].mapIndexY == player.mapIndexY && isCollide(interactArray[i], player) ) {
+                interact(interactArray[i]);
+                break;
+            }
+        }
+    }
+
+}
+
+//checks for collision between two object
+function isCollide(a, b) {
+    return !(
+        ((a.y + a.height) < (b.y)) ||
+        (a.y > (b.y + b.height)) ||
+        ((a.x + a.width) < b.x) ||
+        (a.x > (b.x + b.width))
+    );
+}
+
+
+// intracts with the NPC
+function interact(NPC) {
+    console.log("interacting with " + NPC.name)
+
+
+
+    // if NPC - send to textbox handler
+    //textbox handler willl function based on the .name property of the objects
+    //else if item - do something else (?)
+
 
 }
 
@@ -140,27 +179,26 @@ function movePlayer() {
 
 //checks if the player can move onto a different tile.
 function switchMapTile() {
-    if (player.x < 5 && mapIndexX > 0) {
+    if (player.x < 5 && player.mapIndexX > 0) {
         player.x = canvas.width - (player.width +10);
-        mapIndexX--;
+        player.mapIndexX--;
     }
-    else if (player.x + player.width >= canvas.width && mapIndexX < 2) {
+    else if (player.x + player.width >= canvas.width && player.mapIndexX < 2) {
         player.x = 10;
-        mapIndexX++;
+        player.mapIndexX++;
     }
-    else if (player.y < 5 && mapIndexY > 0) {
+    else if (player.y < 5 && player.mapIndexY > 0) {
         player.y = canvas.height - (player.height + 10);
-        mapIndexY--;
+        player.mapIndexY--;
     }
-    else if (player.y + player.height >= canvas.height && mapIndexY < 2) {
+    else if (player.y + player.height >= canvas.height && player.mapIndexY < 2) {
         player.y = 10;
-        mapIndexY++;
+        player.mapIndexY++;
     }
 
-    currentMapTile = mapTiles[mapIndexY][mapIndexX]
 
 
-    console.log(mapIndexX, mapIndexY)
+    console.log(player.mapIndexX, player.mapIndexY)
     
 }
 
@@ -174,17 +212,36 @@ function draw() {
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.drawImage(player.spritesheet, player.x, player.y, player.width, player.height);
+
+ if (checkOnTile(pubFriend)) {
+        ctx.drawImage(pubFriend.spritesheet, pubFriend.x, pubFriend.y, pubFriend.width, pubFriend.height);
+    }
+
+
     
+    ctx.drawImage(player.spritesheet, player.x, player.y, player.width, player.height);
+
+   
     //ctx.drawImage(chickenObj.spritesheet, chichenObj.x, chickenObj.y, chickenObj.width, chickenObj.height)
 
     
 }
 
+//returns true if the player is on the same tile as the object
+function checkOnTile(object) {
+    
+    if (object.mapIndexX == player.mapIndexX && object.mapIndexY == player.mapIndexY) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}
+
 
 //the main gameloop
 function gameloop() {
-    
+
     update();
     draw();
     
