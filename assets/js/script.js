@@ -13,7 +13,7 @@ ctx.imageSmoothingEnabled = false;  //makes the pixelart assets crisp
 
 
 //function that holds data about all game objects regarding how theyre drawn
-function GameObject(name, spritesheet, x, y, width, height, mapIndexX, mapIndexY, absenceTime){
+function GameObject(name, spritesheet, x, y, width, height, mapIndexX, mapIndexY, absenceTime, specialTime){
     this.name = name;
     this.spritesheet = spritesheet;
     this.x = x;
@@ -23,6 +23,7 @@ function GameObject(name, spritesheet, x, y, width, height, mapIndexX, mapIndexY
     this.mapIndexX = mapIndexX;
     this.mapIndexY = mapIndexY;
     this.absenceTime = absenceTime;
+    this.specialTime = specialTime;
 
 }
 
@@ -35,9 +36,11 @@ parsnip.src = "assets/img/parsnip.png"
 
 
 let player = new GameObject("player", chicken, 5, 5, 64, 64, 0, 0, 0);
-let pubFriend = new GameObject("pubFriend", chicken, 200, 300, 64, 64, 1, 0, "morning");
+let pubFriend = new GameObject("pubFriend", chicken, 220, 300, 64, 64, 1, 0, "night", "afternoon");
+let pubSign = new GameObject("pubSign", parsnip, 150, 300, 64, 64, 1, 2, "none", "night");
+let pubSignObstacle = new GameObject("pubSignObstacle", chicken, 250, 300, 64, 64, 1, 2, "night");
 
-let interactArray = [pubFriend];
+let interactArray = [pubFriend, pubSign, pubSignObstacle];
 
 
 //function that hold the current input action as a string
@@ -126,21 +129,25 @@ function manageInput() {
         player.y -= 5;
         playerDirection = 2;
         frameCount++;
+        player.y.onchange = disappearTextBox(true);
     } else if (gamerInput.action === "Down" && player.y + player.height < canvas.height) {
 
         player.y += 5;
         playerDirection = 0;
         frameCount++;
+        player.y.onchange = disappearTextBox(true);
     } else if (gamerInput.action === "Left" && player.x > 0) {
 
         player.x -= 5;
         playerDirection = 1;
         frameCount++;
+        player.x.onchange = disappearTextBox(true);
     } else if (gamerInput.action === "Right" && player.x + player.width < canvas.width) {
 
         player.x += 5;
         playerDirection = 3;
         frameCount++;
+        player.x.onchange = disappearTextBox(true);
     } 
     else if(gamerInput.action === "Interact") {
         for (i = 0; i < interactArray.length; i++){
@@ -151,7 +158,10 @@ function manageInput() {
         }
     }
 
-}
+    
+
+
+}   
 
 //checks for collision between two object
 function isCollide(a, b) {
@@ -173,7 +183,7 @@ function interact(NPC) {
     }
 
 
-    showDialogue(NPC.name, isAtCampfire);
+    showDialogue(NPC.name, isAtCampfire, NPC.specialTime);
 
     
 
@@ -229,6 +239,12 @@ function draw() {
  if (checkOnTile(pubFriend)) {
         ctx.drawImage(pubFriend.spritesheet, pubFriend.x, pubFriend.y, pubFriend.width, pubFriend.height);
     }
+if (checkOnTile(pubSign)) {
+    ctx.drawImage(pubSign.spritesheet, pubSign.x, pubSign.y, pubSign.width, pubSign.height);
+}
+if (checkOnTile(pubSignObstacle)) {
+    ctx.drawImage(pubSignObstacle.spritesheet, pubSignObstacle.x, pubSignObstacle.y, pubSignObstacle.width, pubSignObstacle.height);
+}
 
 
     
