@@ -109,6 +109,7 @@ function update() {
     }
  
     
+    
 
 }
 
@@ -143,7 +144,7 @@ function manageInput() {
     } 
     else if(gamerInput.action === "Interact") {
         for (i = 0; i < interactArray.length; i++){
-            if (interactArray[i].mapIndexX == player.mapIndexX && interactArray[i].mapIndexY == player.mapIndexY && isCollide(interactArray[i], player && interactArray[i].absenceTime != time) ) {
+            if (interactArray[i].mapIndexX == player.mapIndexX && interactArray[i].mapIndexY == player.mapIndexY && isCollide(interactArray[i], player) && interactArray[i].absenceTime != time ) {
                 interact(interactArray[i]);
                 break;
             }

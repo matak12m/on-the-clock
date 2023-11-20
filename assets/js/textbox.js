@@ -9,9 +9,15 @@ let objectName;
 let dialogueArray = [];
 
 
+
+
 //handles the textbox visibility and its contents
 
 function showDialogue(name, isAtCampfire) {
+
+
+
+    
 
     objectName = name;
 
@@ -30,7 +36,7 @@ function showDialogue(name, isAtCampfire) {
         textChoice1.textContent = "Afternoon"
         textChoice2.textContent = "Evening"
         textChoice3.textContent = "Night"
-
+        
     }
     
 
@@ -41,6 +47,20 @@ function showDialogue(name, isAtCampfire) {
 
 
 }
+
+
+
+function disappearTextBox() {
+    textContainer.style.visibility = "hidden";
+    mainTextBox.style.visibility = "hidden";
+    textChoice1.style.visibility = "hidden";
+    textChoice2.style.visibility = "hidden";
+    textChoice3.style.visibility = "hidden";
+    console.log("disappearing textbox")
+}
+
+
+
 
 
 function choice1(){

@@ -7,6 +7,8 @@ clockContainer.addEventListener("mouseup", mouseUp)
 clockHand.addEventListener("mouseover", preventRotation);
 clockHand.addEventListener("mouseout", preventRotationStop)
 
+
+
 let canRotate = 1;
 let degrees = 0; //global so it can be read by the gameplay script.
 let time = "morning";
@@ -72,7 +74,7 @@ function getAngleDegrees() {
 
         degrees = (degrees + 360) % 360;
     }
-    console.log('degrees:', {degrees })
+    //console.log('degrees:', {degrees })
     return degrees + "deg";
 }
 
@@ -90,4 +92,8 @@ function determineTime(){
     else {
         time = "night";
     }
+    console.log(time);
+    time.onchange = disappearTextBox();
 }
+
+
