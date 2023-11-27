@@ -3,6 +3,7 @@
 
 let textContainer = document.getElementById("textContainer") 
 let mainTextBox = document.getElementById("mainTextBox")
+
 let textChoice1 = document.getElementById("textChoice1")
 let textChoice2 = document.getElementById("textChoice2")
 let textChoice3 = document.getElementById("textChoice3")
@@ -28,9 +29,9 @@ function showDialogue(name, isAtCampfire, specialTime) {
     mainTextBox.style.visibility = "visible";
    
     //pub friend textboxes
-    if (name == pubFriend){
+    if (name == "pubFriend"){
         if (!isAtCampfire && time == specialTime) {
-        appearTextBox(0);
+        appearTextBox(0, name, specialTime);
 
         mainTextBox.textContent = "Hey there! sorry, but I'm busy right now. The pub is full of customers!";
 
@@ -38,7 +39,7 @@ function showDialogue(name, isAtCampfire, specialTime) {
 
         }
         else if(!isAtCampfire && time != specialTime)  {
-        appearTextBox(2);
+        appearTextBox(2, name, specialTime);
 
         mainTextBox.textContent = "Hey there! I have some free time right now. not a lot of customers.";
         textChoice1.textContent = "come to the campfire!";
@@ -47,17 +48,17 @@ function showDialogue(name, isAtCampfire, specialTime) {
 
         }
         else {
-            appearTextBox(0);
+            appearTextBox(0, name, specialTime);
             mainTextBox.textContent = "I wonder what the others are doing. haven't seen any of them in the pub lately.";
         }
 
     }
 
     //text for the pub sign, which relates to the pub friends schedule
-    if (name == pubSign) {
+    if (name == "pubSign") {
 
         if (time == specialTime){
-            appearTextBox(3)
+            appearTextBox(3, name, specialTime)
 
             mainTextBox.textContent = "the sign advertises meals for the " + pubFriend.specialTime + ". There is an eraser and chalk...";
             textChoice1.textContent = "advertise breakfasts";
@@ -66,44 +67,45 @@ function showDialogue(name, isAtCampfire, specialTime) {
             
         }
         else {
-            appearTextBox(0)
+            appearTextBox(0, name, specialTime)
             mainTextBox.textContent = "the sign advertises for the " + pubFriend.specialTime + ". there is an eraser and chalk, but someone's watching.";
         }
     }
 
-    if (name == pubSignObstacle) {
-        appearTextBox(0)
+    if (name == "pubSignObstacle") {
+        appearTextBox(0, name, specialTime)
         mainTextBox.textContent = "Well met, stranger!";
     }
-
-
-    textChoice1.addEventListener("mousedown", choice1(name, specialTime));
-    textChoice2.addEventListener("mousedown", choice2(name, specialTime));
-    textChoice3.addEventListener("mousedown", choice3(name, specialTime));
-
-
 
 }
 
 
 
 //makes the aappropriate amount of options visible
-function appearTextBox(options) {
+function appearTextBox(options, name, specialTime) {
     switch(options){
-        case 1:
+        case 3:
         textContainer.style.visibility = "visible";
         textChoice1.style.visibility = "visible";
         textChoice2.style.visibility = "visible";
         textChoice3.style.visibility = "visible";
+        
+        textChoice1.addEventListener("click", choice1(name, specialTime));
+        textChoice2.addEventListener("click", choice1(name, specialTime));
+        textChoice3.addEventListener("click", choice1(name, specialTime));
         
         case 2:
         textContainer.style.visibility = "visible";
         textChoice1.style.visibility = "visible";
         textChoice3.style.visibility = "visible";
         
-        case 3:
+        textChoice1.addEventListener("click", choice1(name, specialTime));
+        textChoice3.addEventListener("click", choice1(name, specialTime));
+        
+        case 1:
         textContainer.style.visibility = "visible";
         textChoice2.style.visibility = "visible";
+        textChoice2.addEventListener("click", choice1(name, specialTime));
         
         case 0:
         textContainer.style.visibility = "visible";
@@ -164,6 +166,7 @@ function choice1(name, specialTime){
             pubFriend.specialTime = "morning"
     }
 
+ 
 
 }
 function choice2(name, specialTime){
@@ -176,6 +179,7 @@ function choice2(name, specialTime){
 
     }
 
+    
 }
 function choice3(name, specialTime){
     console.log("selected choice 3")
