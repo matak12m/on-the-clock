@@ -12,6 +12,7 @@ ctx.imageSmoothingEnabled = false;  //makes the pixelart assets crisp
 
 
 
+
 //function that holds data about all game objects regarding how theyre drawn
 function GameObject(name, spritesheet, x, y, width, height, mapIndexX, mapIndexY, absenceTime, specialTime){
     this.name = name;
@@ -51,9 +52,9 @@ let player = new GameObject("player", lightSkin, 5, 5, 64, 64, 0, 0);
 let playerClothes = new GameObject("playerClothes", overalls, 5, 5, 64, 64, 0, 0)
 let playerShoes = new GameObject("playerShoes", brownShoes, 5, 5, 64, 64, 0, 0)
 
-let pubFriend = new GameObject("pubFriend", chicken, 220, 300, 64, 64, 1, 0, "night", "afternoon");
-let pubSign = new GameObject("pubSign", parsnip, 150, 300, 64, 64, 1, 2, "none", "night");
-let pubSignObstacle = new GameObject("pubSignObstacle", chicken, 250, 300, 64, 64, 1, 2, "night");
+let pubFriend = new GameObject("pubFriend", chicken, 220, 300, 64, 64, 1, 0, "night", "morning");
+let pubSign = new GameObject("pubSign", parsnip, 100, 300, 64, 64, 1, 2, "none", "night");
+let pubSignObstacle = new GameObject("pubSignObstacle", chicken, 150, 100, 64, 64, 1, 2, "night");
 
 let interactArray = [pubFriend, pubSign, pubSignObstacle];
 
@@ -109,6 +110,7 @@ function input(event) {
     } else {
         gamerInput = new GamerInput("None");
     }
+
 }
 
 //updates the canvas, in this case only moves the player
@@ -139,44 +141,51 @@ function update() {
 
 
 
-
+let canInteract = 1;
 function manageInput() {
     if (gamerInput.action === "Up" && player.y > playerCollisionY - 5) {    //moves the player, changes the direction, which is used for animating the farmer, and upticks framecount if the player is moving
 
         player.y -= 5;
         playerDirection = 3;
         frameCount++;
-        player.y.onchange = disappearTextBox(true);
+        player.y.onchange = disappearTextBox("all");
         
     } else if (gamerInput.action === "Down" && player.y + player.height < canvas.height) {
 
         player.y += 5;
         playerDirection = 2;
         frameCount++;
-        player.y.onchange = disappearTextBox(true);
+        player.y.onchange = disappearTextBox("all");
         
     } else if (gamerInput.action === "Left" && player.x > playerCollisionX - 5) {
 
         player.x -= 5;
         playerDirection = 1;
         frameCount++;
-        player.x.onchange = disappearTextBox(true);
+        player.x.onchange = disappearTextBox("all");
         
     } else if (gamerInput.action === "Right" && player.x + player.width < canvas.width) {
 
         player.x += 5;
         playerDirection = 0;
         frameCount++;
-        player.x.onchange = disappearTextBox(true);
+        player.x.onchange = disappearTextBox("all");
         
     } 
-    else if(gamerInput.action === "Interact") {
+    else if(gamerInput.action === "Interact" && canInteract == 1) {
         for (i = 0; i < interactArray.length; i++){
             if (interactArray[i].mapIndexX == player.mapIndexX && interactArray[i].mapIndexY == player.mapIndexY && isCollide(interactArray[i], player) && interactArray[i].absenceTime != time ) {
                 interact(interactArray[i]);
+                canInteract = 0;
+                console.log("pressed space")
                 break;
             }
         }
+    }
+    else if (gamerInput.action == "None") {
+        walkIndex = 1;
+        frameCount = 0;
+        canInteract = 1;
     }
 
     if (frameCount > 5) {
@@ -200,12 +209,12 @@ function isCollide(a, b) {
 
 // intracts with the NPC
 function interact(NPC) {
+
     console.log("interacting with " + NPC.name);
     let isAtCampfire = false;
     if (NPC.mapIndexX == 0 && NPC.mapIndexY == 0) {
         isAtCampfire = true;
     }
-
 
     showDialogue(NPC.name, isAtCampfire, NPC.specialTime);
 

@@ -93,7 +93,7 @@ function determineTime(){
         time = "night";
     }
     console.log(time);
-    time.onchange = disappearTextBox(true);
+    time.onchange = disappearTextBox("all");
 }
 
 

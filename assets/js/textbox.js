@@ -7,7 +7,7 @@ let textChoice1 = document.getElementById("textChoice1")
 let textChoice2 = document.getElementById("textChoice2")
 let textChoice3 = document.getElementById("textChoice3")
 
-let objectName;
+
 
 let dialogueArray = [];
 
@@ -22,7 +22,6 @@ function showDialogue(name, isAtCampfire, specialTime) {
 
     
 
-    objectName = name;
 
 
     
@@ -31,7 +30,7 @@ function showDialogue(name, isAtCampfire, specialTime) {
     //pub friend textboxes
     if (name == pubFriend){
         if (!isAtCampfire && time == specialTime) {
-        appearTextBox(0)
+        appearTextBox(0);
 
         mainTextBox.textContent = "Hey there! sorry, but I'm busy right now. The pub is full of customers!";
 
@@ -39,7 +38,7 @@ function showDialogue(name, isAtCampfire, specialTime) {
 
         }
         else if(!isAtCampfire && time != specialTime)  {
-        appearTextBox(2)
+        appearTextBox(2);
 
         mainTextBox.textContent = "Hey there! I have some free time right now. not a lot of customers.";
         textChoice1.textContent = "come to the campfire!";
@@ -48,7 +47,7 @@ function showDialogue(name, isAtCampfire, specialTime) {
 
         }
         else {
-            appearTextBox(0)
+            appearTextBox(0);
             mainTextBox.textContent = "I wonder what the others are doing. haven't seen any of them in the pub lately.";
         }
 
@@ -78,9 +77,9 @@ function showDialogue(name, isAtCampfire, specialTime) {
     }
 
 
-   // textChoice1.addEventListener("click", choice1(name, specialTime));
-    //textChoice2.addEventListener("click", choice2(name, specialTime));
-    //textChoice3.addEventListener("click", choice3(name, specialTime));
+    textChoice1.addEventListener("mousedown", choice1(name, specialTime));
+    textChoice2.addEventListener("mousedown", choice2(name, specialTime));
+    textChoice3.addEventListener("mousedown", choice3(name, specialTime));
 
 
 
@@ -90,25 +89,27 @@ function showDialogue(name, isAtCampfire, specialTime) {
 
 //makes the aappropriate amount of options visible
 function appearTextBox(options) {
-    if (options == 3) {
+    switch(options){
+        case 1:
         textContainer.style.visibility = "visible";
         textChoice1.style.visibility = "visible";
         textChoice2.style.visibility = "visible";
         textChoice3.style.visibility = "visible";
-    }
-    else if (options == 2) {
+        
+        case 2:
         textContainer.style.visibility = "visible";
         textChoice1.style.visibility = "visible";
         textChoice3.style.visibility = "visible";
-    }
-    else if (options == 1) {
+        
+        case 3:
         textContainer.style.visibility = "visible";
         textChoice2.style.visibility = "visible";
-        }
-    else if (options == 0) {
+        
+        case 0:
         textContainer.style.visibility = "visible";
 
-    }
+
+}
 }
 
 
@@ -117,21 +118,30 @@ function appearTextBox(options) {
 
 
 //handles getting rid of the textbox elements
-function disappearTextBox(all) {
-    if(all = true) {
+
+
+
+//bug: for some reason the first if in this function always executes, even if the passed value is different
+function disappearTextBox(disappearThis) {
+    switch(disappearThis){
+        case "onlyChoices":
+
+    
+    textChoice1.style.visibility = "hidden";
+    textChoice2.style.visibility = "hidden";
+    textChoice3.style.visibility = "hidden";
+    console.log("disappearing choices")
+
+        case "all":
     textContainer.style.visibility = "hidden";
     mainTextBox.style.visibility = "hidden";
     textChoice1.style.visibility = "hidden";
     textChoice2.style.visibility = "hidden";
     textChoice3.style.visibility = "hidden";
-    }
-    else if (all = "onlyChoices") {
-    textChoice1.style.visibility = "hidden";
-    textChoice2.style.visibility = "hidden";
-    textChoice3.style.visibility = "hidden";
+    console.log("disappearing whole textbox")
 
+    
     }
-    console.log("disappearing textbox")
 }
 
 
@@ -139,6 +149,7 @@ function disappearTextBox(all) {
 
 
 function choice1(name, specialTime){
+    console.log("selected choice 1")
     switch(name){
         case "pubFriend":
             disappearTextBox("onlyChoices");
@@ -156,6 +167,7 @@ function choice1(name, specialTime){
 
 }
 function choice2(name, specialTime){
+    console.log("selected choice 2")
     switch(name){
         case "pubSign":
         disappearTextBox("onlyChoices");
@@ -166,6 +178,7 @@ function choice2(name, specialTime){
 
 }
 function choice3(name, specialTime){
+    console.log("selected choice 3")
     switch(name){
         case "pubSign":
         disappearTextBox("onlyChoices");
