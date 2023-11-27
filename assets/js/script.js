@@ -31,11 +31,26 @@ function GameObject(name, spritesheet, x, y, width, height, mapIndexX, mapIndexY
 
 let chicken = new Image();
 let parsnip = new Image();
+let lightSkin = new Image();
+let overalls = new Image();
+let brownShoes = new Image();
+
+
+
+
 chicken.src = "assets/img/chicken.png"
 parsnip.src = "assets/img/parsnip.png"
 
+lightSkin.src = "assets/img/character_walk_body_light.png"
+overalls.src = "assets/img/character_walk_clothes_fullbody_overhalls_blue.png"
+brownShoes.src = "assets/img/character_walk_clothes_shoes_brown.png"
 
-let player = new GameObject("player", chicken, 5, 5, 64, 64, 0, 0, 0);
+
+
+let player = new GameObject("player", lightSkin, 5, 5, 64, 64, 0, 0);
+let playerClothes = new GameObject("playerClothes", overalls, 5, 5, 64, 64, 0, 0)
+let playerShoes = new GameObject("playerShoes", brownShoes, 5, 5, 64, 64, 0, 0)
+
 let pubFriend = new GameObject("pubFriend", chicken, 220, 300, 64, 64, 1, 0, "night", "afternoon");
 let pubSign = new GameObject("pubSign", parsnip, 150, 300, 64, 64, 1, 2, "none", "night");
 let pubSignObstacle = new GameObject("pubSignObstacle", chicken, 250, 300, 64, 64, 1, 2, "night");
@@ -100,6 +115,8 @@ function input(event) {
 
 let frameCount = 0;
 let playerDirection = 0;
+const playerCollisionX = -50;
+const playerCollisionY = -50;
 function update() {
 
     if (gamerInput != "None"){
@@ -107,7 +124,7 @@ function update() {
     }
     
 
-    if (player.x <5 || player.y<5 || player.x + player.width >= canvas.width || player.y + player.height >= canvas.height ){  //checks for collision with canvas sides
+    if (player.x <playerCollisionX || player.y<playerCollisionY || player.x + player.width >= canvas.width || player.y + player.height >= canvas.height ){  //checks for collision with canvas sides
         switchMapTile();
     }
  
@@ -124,30 +141,34 @@ function update() {
 
 
 function manageInput() {
-    if (gamerInput.action === "Up" && player.y > 0) {    //moves the player, changes the direction, which is used for animating the farmer, and upticks framecount if the player is moving
+    if (gamerInput.action === "Up" && player.y > playerCollisionY - 5) {    //moves the player, changes the direction, which is used for animating the farmer, and upticks framecount if the player is moving
 
         player.y -= 5;
-        playerDirection = 2;
+        playerDirection = 3;
         frameCount++;
         player.y.onchange = disappearTextBox(true);
+        
     } else if (gamerInput.action === "Down" && player.y + player.height < canvas.height) {
 
         player.y += 5;
-        playerDirection = 0;
+        playerDirection = 2;
         frameCount++;
         player.y.onchange = disappearTextBox(true);
-    } else if (gamerInput.action === "Left" && player.x > 0) {
+        
+    } else if (gamerInput.action === "Left" && player.x > playerCollisionX - 5) {
 
         player.x -= 5;
         playerDirection = 1;
         frameCount++;
         player.x.onchange = disappearTextBox(true);
+        
     } else if (gamerInput.action === "Right" && player.x + player.width < canvas.width) {
 
         player.x += 5;
-        playerDirection = 3;
+        playerDirection = 0;
         frameCount++;
         player.x.onchange = disappearTextBox(true);
+        
     } 
     else if(gamerInput.action === "Interact") {
         for (i = 0; i < interactArray.length; i++){
@@ -158,7 +179,10 @@ function manageInput() {
         }
     }
 
-    
+    if (frameCount > 5) {
+        walkCycle();
+        frameCount = 0;
+    }
 
 
 }   
@@ -200,7 +224,7 @@ function interact(NPC) {
 
 //checks if the player can move onto a different tile.
 function switchMapTile() {
-    if (player.x < 5 && player.mapIndexX > 0) {
+    if (player.x < playerCollisionX && player.mapIndexX > 0) {
         player.x = canvas.width - (player.width +10);
         player.mapIndexX--;
     }
@@ -208,7 +232,7 @@ function switchMapTile() {
         player.x = 10;
         player.mapIndexX++;
     }
-    else if (player.y < 5 && player.mapIndexY > 0) {
+    else if (player.y < playerCollisionY && player.mapIndexY > 0) {
         player.y = canvas.height - (player.height + 10);
         player.mapIndexY--;
     }
@@ -223,6 +247,31 @@ function switchMapTile() {
     
 }
 
+
+const scale = 2;
+const width = 64;
+const height = 64;
+const sWidth = width * scale;
+const sHeight = height * scale;
+const walkLoop = [0, 1, 2, 3, 4, 5];
+let walkIndex = 0;
+
+
+function walkCycle() {
+    
+    
+walkIndex++;
+        if (walkIndex >= walkLoop.length) {
+         walkIndex = 0;
+         //console.log("walk cycle change");
+    }
+}
+
+
+
+function drawFrame (frameX, frameY, canvasX, canvasY, spritesheet) {  //siplifies the frame drawing process, we can pass 1 for frameX to signify second collumn (instead of passing the height)
+    ctx.drawImage(spritesheet, frameX * width, frameY * height, width, height, canvasX, canvasY, sWidth, sHeight);
+}
 
 
 
@@ -247,10 +296,11 @@ if (checkOnTile(pubSignObstacle)) {
 }
 
 
-    
-    ctx.drawImage(player.spritesheet, player.x, player.y, player.width, player.height);
+    //draws player
+    drawFrame( walkIndex, playerDirection, player.x, player.y, player.spritesheet);
+    drawFrame( walkIndex, playerDirection, player.x, player.y, playerClothes.spritesheet);
+    drawFrame( walkIndex, playerDirection, player.x, player.y, playerShoes.spritesheet);
 
-   
     //ctx.drawImage(chickenObj.spritesheet, chichenObj.x, chickenObj.y, chickenObj.width, chickenObj.height)
 
     
