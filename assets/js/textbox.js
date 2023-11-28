@@ -90,22 +90,22 @@ function appearTextBox(options, name, specialTime) {
         textChoice2.style.visibility = "visible";
         textChoice3.style.visibility = "visible";
         
-        textChoice1.addEventListener("click", choice1(name, specialTime));
-        textChoice2.addEventListener("click", choice1(name, specialTime));
-        textChoice3.addEventListener("click", choice1(name, specialTime));
-        
+        textChoice1.addEventListener("click", () => { choice1(name, specialTime) });
+        textChoice2.addEventListener("click", () => { choice2(name, specialTime) });
+        textChoice3.addEventListener("click", () => { choice3(name, specialTime) });
+
         case 2:
         textContainer.style.visibility = "visible";
         textChoice1.style.visibility = "visible";
         textChoice3.style.visibility = "visible";
-        
-        textChoice1.addEventListener("click", choice1(name, specialTime));
-        textChoice3.addEventListener("click", choice1(name, specialTime));
-        
+
+        textChoice1.addEventListener("click", () => {  choice1(name, specialTime) });
+        textChoice3.addEventListener("click", () => {  choice3(name, specialTime) });
+
         case 1:
         textContainer.style.visibility = "visible";
         textChoice2.style.visibility = "visible";
-        textChoice2.addEventListener("click", choice1(name, specialTime));
+        textChoice2.addEventListener("click", () => {  choice2(name, specialTime) });
         
         case 0:
         textContainer.style.visibility = "visible";
@@ -194,8 +194,3 @@ function choice3(name, specialTime){
 }
 
 
-
-//bug: choices execute automatically without input from the player. 
-//intended input - clicking on the respective choice box
-
-//bug: the text isnt changing in the textboxes. 
