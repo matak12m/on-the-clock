@@ -39,6 +39,9 @@ function showDialogue(name, isAtCampfire, specialTime) {
 
     
     mainTextBox.style.visibility = "visible";
+    textChoice1.style.visibility = "hidden";
+    textChoice2.style.visibility = "hidden";
+    textChoice3.style.visibility = "hidden";
    
     //pub friend textboxes
     if (name == "pubFriend"){
@@ -46,7 +49,7 @@ function showDialogue(name, isAtCampfire, specialTime) {
         appearTextBox(0, name, specialTime);
 
         mainTextBox.textContent = "Hey there! sorry, but I'm busy right now. The pub is full of customers!";
-
+            
 
 
         }
@@ -96,32 +99,51 @@ function showDialogue(name, isAtCampfire, specialTime) {
 //makes the aappropriate amount of options visible
 function appearTextBox(options, name, specialTime) {
     switch(options){
-        case 3:
+        
+        case 0: {
+        textContainer.style.visibility = "visible";
+        textChoice1.style.visibility = "hidden";
+        textChoice2.style.visibility = "hidden";
+        textChoice3.style.visibility = "hidden";
+        console.log("no options")
+        }
+        
+        case 1: {
+        textContainer.style.visibility = "visible";
+        textChoice1.style.visibility = "hidden";
+        textChoice2.style.visibility = "visible";
+        textChoice3.style.visibility = "hidden";
+        console.log("1 options")
+
+        textChoice2.addEventListener("click", () => {  choice2(name, specialTime) });
+        }
+        case 2: {
+        textContainer.style.visibility = "visible";
+        textChoice1.style.visibility = "visible";
+        textChoice2.style.visibility = "hidden";
+        textChoice3.style.visibility = "visible";
+        console.log("2 options")
+
+        textChoice1.addEventListener("click", () => {  choice1(name, specialTime) });
+        textChoice3.addEventListener("click", () => {  choice3(name, specialTime) });
+        }
+     
+
+        case 3: {
         textContainer.style.visibility = "visible";
         textChoice1.style.visibility = "visible";
         textChoice2.style.visibility = "visible";
         textChoice3.style.visibility = "visible";
+        console.log("3 options")
+
         
         textChoice1.addEventListener("click", () => { choice1(name, specialTime) });
         textChoice2.addEventListener("click", () => { choice2(name, specialTime) });
         textChoice3.addEventListener("click", () => { choice3(name, specialTime) });
-
-        case 2:
-        textContainer.style.visibility = "visible";
-        textChoice1.style.visibility = "visible";
-        textChoice3.style.visibility = "visible";
-
-        textChoice1.addEventListener("click", () => {  choice1(name, specialTime) });
-        textChoice3.addEventListener("click", () => {  choice3(name, specialTime) });
-
-        case 1:
-        textContainer.style.visibility = "visible";
-        textChoice2.style.visibility = "visible";
-        textChoice2.addEventListener("click", () => {  choice2(name, specialTime) });
+        }
         
-        case 0:
-        textContainer.style.visibility = "visible";
-
+        
+        
 
 }
 }

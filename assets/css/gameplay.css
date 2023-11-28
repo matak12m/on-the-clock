@@ -1,8 +1,13 @@
 canvas {
     float: right;
-    margin-right: 5vh;
+    margin-right: 4vh;
     display: block;
-    outline:1px solid;
+
+
+    border-radius: 10px;
+    border-style: solid;
+    border-color: saddlebrown;
+
     width: 50vh;
     height: 50vh;
     text-align: center;
@@ -61,6 +66,7 @@ div {
     width: 49vh;
     height: 7vh;
     margin: 5px auto;
+    font-size: 1.5vw;
     visibility:hidden;
 
 }
@@ -73,7 +79,9 @@ div {
     margin-bottom: 10px auto;
     margin-left: 10px auto;
     margin-right: 10px auto;
+    font-size: 1.5vw;
     visibility:hidden;
+
     
 }
 
