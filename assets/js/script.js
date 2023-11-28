@@ -32,9 +32,18 @@ function GameObject(name, spritesheet, x, y, width, height, mapIndexX, mapIndexY
 
 let chicken = new Image();
 let parsnip = new Image();
+
+let produceStall = new Image();
+
+
+
 let lightSkin = new Image();
 let overalls = new Image();
 let brownShoes = new Image();
+let brownSkin = new Image();
+let redShirt = new Image();
+let darkBluePants = new Image();
+
 
 
 
@@ -42,19 +51,32 @@ let brownShoes = new Image();
 chicken.src = "assets/img/chicken.png"
 parsnip.src = "assets/img/parsnip.png"
 
+
+produceStall.src = "assets/img/commerce/marketplace/commerce_marketplace_stall.png"
+
 lightSkin.src = "assets/img/character_walk_body_light.png"
 overalls.src = "assets/img/character_walk_clothes_fullbody_overhalls_blue.png"
 brownShoes.src = "assets/img/character_walk_clothes_shoes_brown.png"
-
+brownSkin.src = "assets/img/character_walk_body_brown.png"
+redShirt.src = "assets/img/character_walk_clothes_chest_colored_shirt_red.png"
+darkBluePants.src = "assets/img/character_walk_clothes_legs_pants_blue_dark.png"
 
 
 let player = new GameObject("player", lightSkin, 5, 5, 64, 64, 0, 0);
-let playerClothes = new GameObject("playerClothes", overalls, 5, 5, 64, 64, 0, 0)
-let playerShoes = new GameObject("playerShoes", brownShoes, 5, 5, 64, 64, 0, 0)
+let playerClothes = new GameObject("playerClothes", overalls)
+let playerShoes = new GameObject("playerShoes", brownShoes)
 
-let pubFriend = new GameObject("pubFriend", chicken, 220, 300, 64, 64, 1, 0, "night", "morning");
+let pubFriend = new GameObject("pubFriend", lightSkin, 220, 300, 64, 64, 1, 0, "night", "morning");
+let pubFriendShirt = new GameObject("pubFriendShirt", redShirt);
+let pubFriendPants = new GameObject("pubFriendPants", darkBluePants);
+let pubFriendShoes = new GameObject("pubFriendShoes", brownShoes);
+
+
+
 let pubSign = new GameObject("pubSign", parsnip, 100, 300, 64, 64, 1, 2, "none", "night");
 let pubSignObstacle = new GameObject("pubSignObstacle", chicken, 150, 100, 64, 64, 1, 2, "night");
+
+
 
 let interactArray = [pubFriend, pubSign, pubSignObstacle];
 
@@ -277,9 +299,15 @@ walkIndex++;
 }
 
 
-
-function drawFrame (frameX, frameY, canvasX, canvasY, spritesheet) {  //siplifies the frame drawing process, we can pass 1 for frameX to signify second collumn (instead of passing the height)
+//used for characters
+function drawCharacter (frameX, frameY, canvasX, canvasY, spritesheet) {  //siplifies the frame drawing process, we can pass 1 for frameX to signify second collumn (instead of passing the height)
     ctx.drawImage(spritesheet, frameX * width, frameY * height, width, height, canvasX, canvasY, sWidth, sHeight);
+}
+
+//used for buildings and other elements
+function drawElement(imgWidth, imgHeight, imgFrameX, imgFrameY, imgCanvasX, imgCanvasY, imgSpritesheet, scale) {
+    ctx.drawImage(imgSpritesheet, imgFrameX * imgWidth, imgFrameY * imgHeight, imgWidth, imgHeight, imgCanvasX, imgCanvasY, imgWidth * scale, imgHeight * scale);
+
 }
 
 
@@ -295,7 +323,12 @@ function draw() {
 
 
  if (checkOnTile(pubFriend)) {
-        ctx.drawImage(pubFriend.spritesheet, pubFriend.x, pubFriend.y, pubFriend.width, pubFriend.height);
+        drawCharacter(1, 2, pubFriend.x, pubFriend.y, pubFriend.spritesheet);
+        drawCharacter(1, 2, pubFriend.x, pubFriend.y, pubFriendShirt.spritesheet);
+        drawCharacter(1, 2, pubFriend.x, pubFriend.y, pubFriendPants.spritesheet);
+        drawCharacter(1, 2, pubFriend.x, pubFriend.y, pubFriendShoes.spritesheet);
+
+
     }
 if (checkOnTile(pubSign)) {
     ctx.drawImage(pubSign.spritesheet, pubSign.x, pubSign.y, pubSign.width, pubSign.height);
@@ -306,9 +339,11 @@ if (checkOnTile(pubSignObstacle)) {
 
 
     //draws player
-    drawFrame( walkIndex, playerDirection, player.x, player.y, player.spritesheet);
-    drawFrame( walkIndex, playerDirection, player.x, player.y, playerClothes.spritesheet);
-    drawFrame( walkIndex, playerDirection, player.x, player.y, playerShoes.spritesheet);
+    drawCharacter( walkIndex, playerDirection, player.x, player.y, player.spritesheet);
+    drawCharacter( walkIndex, playerDirection, player.x, player.y, playerClothes.spritesheet);
+    drawCharacter( walkIndex, playerDirection, player.x, player.y, playerShoes.spritesheet);
+
+
 
     //ctx.drawImage(chickenObj.spritesheet, chichenObj.x, chickenObj.y, chickenObj.width, chickenObj.height)
 
@@ -329,9 +364,13 @@ function checkOnTile(object) {
 //draws the background of the tile the player is on.
 function drawBackground(mapX, mapY) {
     if (mapX == 0 && mapY == 0) {
-        ctx.drawImage(parsnip, 200, 200, 40, 40);
+        drawElement(64, 64, 0, 0, 150, 150, parsnip, 1);
     }
-
+    else if (mapX == 1 && mapY == 0){
+        drawElement(128, 128, 0, 0, 200, 180, produceStall, 2)
+        
+        drawElement(128, 128, 1, 0, 20, 200, produceStall, 2)
+    }
 
 
 }

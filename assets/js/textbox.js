@@ -106,6 +106,7 @@ function appearTextBox(options, name, specialTime) {
         textChoice2.style.visibility = "hidden";
         textChoice3.style.visibility = "hidden";
         console.log("no options")
+        break;
         }
         
         case 1: {
@@ -117,6 +118,8 @@ function appearTextBox(options, name, specialTime) {
 
         textChoice2.addEventListener("click", () => {  choice2(name, specialTime) });
         }
+        break;
+
         case 2: {
         textContainer.style.visibility = "visible";
         textChoice1.style.visibility = "visible";
@@ -127,7 +130,7 @@ function appearTextBox(options, name, specialTime) {
         textChoice1.addEventListener("click", () => {  choice1(name, specialTime) });
         textChoice3.addEventListener("click", () => {  choice3(name, specialTime) });
         }
-     
+        break;
 
         case 3: {
         textContainer.style.visibility = "visible";
@@ -141,6 +144,7 @@ function appearTextBox(options, name, specialTime) {
         textChoice2.addEventListener("click", () => { choice2(name, specialTime) });
         textChoice3.addEventListener("click", () => { choice3(name, specialTime) });
         }
+        break;
         
         
         
@@ -167,6 +171,7 @@ function disappearTextBox(disappearThis) {
     textChoice2.style.visibility = "hidden";
     textChoice3.style.visibility = "hidden";
     console.log("disappearing choices")
+    break;
 
         case "all":
     textContainer.style.visibility = "hidden";
@@ -175,6 +180,7 @@ function disappearTextBox(disappearThis) {
     textChoice2.style.visibility = "hidden";
     textChoice3.style.visibility = "hidden";
     console.log("disappearing whole textbox")
+    break;
 
     
     }
@@ -192,12 +198,15 @@ function choice1(name, specialTime){
             mainTextBox.textContent = "alright, see you there!"
             pubFriend.mapIndexX = 0;
             pubFriend.mapIndexY = 0;
+            break;
 
         case "pubSign":
                     
             disappearTextBox("onlyChoices");
             mainTextBox.textContent = "you changed the advertisements. People should notice tomorrow."
             pubFriend.specialTime = "morning"
+
+            break;
     }
 
  
