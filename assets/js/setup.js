@@ -5,6 +5,8 @@ let parsnip = new Image();
 let campFireSprite = new Image();
 let SignSprite = new Image();
 let produceStall = new Image();
+let blacksmithStall = new Image();
+
 
 //character spritesheets
 let lightSkin = new Image();
@@ -24,6 +26,7 @@ campFireSprite.src = "assets/img/Campfire.png"
 SignSprite.src = "assets/img/Wood_Sign.png"
 
 produceStall.src = "assets/img/commerce/marketplace/commerce_marketplace_stall.png"
+blacksmithStall.src = "assets/img/commerce/gear/waepon_gear_stall.png"
 
 lightSkin.src = "assets/img/character_walk_body_light.png"
 overalls.src = "assets/img/character_walk_clothes_fullbody_overhalls_blue.png"
@@ -34,6 +37,8 @@ redShirt.src = "assets/img/character_walk_clothes_chest_colored_shirt_red.png"
 
 darkBluePants.src = "assets/img/character_walk_clothes_legs_pants_blue_dark.png"
 blackSkinIdle.src = "assets/img/character/adult/idle/character_body/character_idle_body_black.png"
+
+
 
 
 
@@ -84,7 +89,13 @@ let travelFriendShirt = new GameObject("travelFriendShirt", redShirt)
 let travelFriendPants = new GameObject("travelFriendPants",darkBluePants)
 let travelFriendShoes = new GameObject("travelFriendShoes", brownShoes)
 
-let travelFriendPet = new GameObject("travelFriendPet",chicken, 350, 375, 180, 180, 2, 2, "none", "none");
+let travelFriendPet = new GameObject("travelFriendPet", chicken, 350, 375, 180, 180, 2, 2, "none", "none");
+
+let blackSmithFriend = new GameObject("blackSmithFriend", lightSkin, 240, 75, 64, 64, 0, 2, "morning", "none");
+let blackSmithFriendShirt = new GameObject("balckSmithFriendClothes", redShirt);
+let blackSmithFriendPants = new GameObject("balckSmithFriendClothes", darkBluePants);
+let blackSmithFriendShoes = new GameObject("balckSmithFriendClothes", brownShoes);
+
 
 
 //getting elements by ID

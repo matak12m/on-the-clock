@@ -11,7 +11,7 @@ const moveSpeed =15;
 
 
 
-let interactArray = [pubFriend, pubSign, pubSignObstacle, travelFriend, travelFriendPet];
+let interactArray = [pubFriend, pubSign, pubSignObstacle, travelFriend, travelFriendPet, blacksmithStall, blackSmithFriend];
 
 
 
@@ -292,6 +292,13 @@ if (checkOnTile(travelFriend)) {
     drawElement(travelFriendPet.width, travelFriendPet.height, 0, 0, travelFriendPet.x, travelFriendPet.y, travelFriendPet.spritesheet, 0.25 );
 }
 
+if (checkOnTile(blackSmithFriend)) {
+    drawCharacter(1, 1, blackSmithFriend.x, blackSmithFriend.y, blackSmithFriend.spritesheet);
+    drawCharacter(1, 1, blackSmithFriend.x, blackSmithFriend.y, blackSmithFriendShirt.spritesheet);
+    drawCharacter(1, 1, blackSmithFriend.x, blackSmithFriend.y, blackSmithFriendPants.spritesheet);
+    drawCharacter(1, 1, blackSmithFriend.x, blackSmithFriend.y, blackSmithFriendShoes.spritesheet);
+}
+
     //draws player
     drawCharacter( walkIndex, playerDirection, player.x, player.y, player.spritesheet);
     drawCharacter( walkIndex, playerDirection, player.x, player.y, playerClothes.spritesheet);
@@ -324,6 +331,9 @@ function drawBackground(mapX, mapY) {
         drawElement(128, 128, 0, 0, 200, 180, produceStall, 2)
         
         drawElement(128, 128, 1, 0, 20, 200, produceStall, 2)
+    }
+    else if (mapX == 0 && mapY ==2) {
+        drawElement(128, 128, 0, 0, 100, 0, blacksmithStall, 2)
     }
 
 
