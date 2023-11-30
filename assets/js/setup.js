@@ -7,6 +7,10 @@ let SignSprite = new Image();
 let produceStall = new Image();
 let blacksmithStall = new Image();
 
+let roofs = new Image();
+let houseWalls = new Image();
+
+
 
 //character spritesheets
 let lightSkin = new Image();
@@ -38,6 +42,8 @@ redShirt.src = "assets/img/character_walk_clothes_chest_colored_shirt_red.png"
 darkBluePants.src = "assets/img/character_walk_clothes_legs_pants_blue_dark.png"
 blackSkinIdle.src = "assets/img/character/adult/idle/character_body/character_idle_body_black.png"
 
+roofs.src = "assets/img/housing/housing_system_roofs.png"
+houseWalls.src = "assets/img/housing/house_building_assets.png"
 
 
 

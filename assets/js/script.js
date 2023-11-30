@@ -335,6 +335,12 @@ function drawBackground(mapX, mapY) {
     else if (mapX == 0 && mapY ==2) {
         drawElement(128, 128, 0, 0, 100, 0, blacksmithStall, 2)
     }
+    else if (mapX == 1 && mapY == 2) {
+        drawElement(176, 176, 0, 1, 250, -100, houseWalls, 2);
+        drawElement(176, 176, 0, 3, 250, -150, roofs, 2);
+        drawElement(88, 90, 8, 4, 0, 0, houseWalls, 2);
+        drawElement(80, 90, 8,6, 0, -30, roofs, 2);
+    }
 
 
 }
