@@ -1,6 +1,6 @@
 canvas {
     float: right;
-    margin-right: 4vh;
+    margin-right: 14vh;
     display: block;
 
 
@@ -26,6 +26,7 @@ div {
     text-align: center;
     border-radius: 10px;
     border-style: solid;
+    word-wrap: normal;
 }
 
 
@@ -63,6 +64,7 @@ div {
 }
 
 #mainTextBox {
+    border-color: sandybrown;
     width: 49vh;
     height: 7vh;
     margin: 5px auto;

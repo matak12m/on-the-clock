@@ -5,11 +5,7 @@ canvas.height = 500;
 ctx.imageSmoothingEnabled = false;  //makes the pixelart assets crisp
 
 
-
-
-
-
-
+const moveSpeed =15;
 
 
 
@@ -43,7 +39,7 @@ let brownShoes = new Image();
 let brownSkin = new Image();
 let redShirt = new Image();
 let darkBluePants = new Image();
-
+let blackSkinIdle = new Image();
 
 
 
@@ -58,27 +54,40 @@ lightSkin.src = "assets/img/character_walk_body_light.png"
 overalls.src = "assets/img/character_walk_clothes_fullbody_overhalls_blue.png"
 brownShoes.src = "assets/img/character_walk_clothes_shoes_brown.png"
 brownSkin.src = "assets/img/character_walk_body_brown.png"
+
+
 redShirt.src = "assets/img/character_walk_clothes_chest_colored_shirt_red.png"
+
+
 darkBluePants.src = "assets/img/character_walk_clothes_legs_pants_blue_dark.png"
+blackSkinIdle.src = "assets/img/character/adult/idle/character_body/character_idle_body_black.png"
 
 
-let player = new GameObject("player", lightSkin, 5, 5, 64, 64, 0, 0);
+
+let player = new GameObject("player", brownSkin, 5, 5, 64, 64, 0, 0);
 let playerClothes = new GameObject("playerClothes", overalls)
 let playerShoes = new GameObject("playerShoes", brownShoes)
 
-let pubFriend = new GameObject("pubFriend", lightSkin, 220, 300, 64, 64, 1, 0, "night", "morning");
+let pubFriend = new GameObject("pubFriend", lightSkin, 220, 300, 64, 64, 1, 1, "night", "morning");
 let pubFriendShirt = new GameObject("pubFriendShirt", redShirt);
 let pubFriendPants = new GameObject("pubFriendPants", darkBluePants);
 let pubFriendShoes = new GameObject("pubFriendShoes", brownShoes);
 
 
-
 let pubSign = new GameObject("pubSign", parsnip, 100, 300, 64, 64, 1, 2, "none", "night");
 let pubSignObstacle = new GameObject("pubSignObstacle", chicken, 150, 100, 64, 64, 1, 2, "night");
 
+let travelFriend = new GameObject("travelFriend", blackSkinIdle, 350, 350, 64, 64, 2, 2, "none", "none")
+let travelFriendShirt = new GameObject("travelFriendShirt", redShirt)
+let travelFriendPants = new GameObject("travelFriendPants",darkBluePants)
+let travelFriendShoes = new GameObject("travelFriendShoes", brownShoes)
+
+let travelFriendPet = new GameObject("travelFriendPet",chicken, 350, 375, 180, 180, 2, 2, "none", "none");
 
 
-let interactArray = [pubFriend, pubSign, pubSignObstacle];
+let interactArray = [pubFriend, pubSign, pubSignObstacle, travelFriend, travelFriendPet];
+
+
 
 
 //function that hold the current input action as a string
@@ -167,28 +176,28 @@ let canInteract = 1;
 function manageInput() {
     if (gamerInput.action === "Up" && player.y > playerCollisionY - 5) {    //moves the player, changes the direction, which is used for animating the farmer, and upticks framecount if the player is moving
 
-        player.y -= 5;
+        player.y -= moveSpeed;
         playerDirection = 3;
         frameCount++;
         player.y.onchange = disappearTextBox("all");
         
     } else if (gamerInput.action === "Down" && player.y + player.height < canvas.height) {
 
-        player.y += 5;
+        player.y += moveSpeed;
         playerDirection = 2;
         frameCount++;
         player.y.onchange = disappearTextBox("all");
         
     } else if (gamerInput.action === "Left" && player.x > playerCollisionX - 5) {
 
-        player.x -= 5;
+        player.x -= moveSpeed;
         playerDirection = 1;
         frameCount++;
         player.x.onchange = disappearTextBox("all");
         
     } else if (gamerInput.action === "Right" && player.x + player.width < canvas.width) {
 
-        player.x += 5;
+        player.x += moveSpeed;
         playerDirection = 0;
         frameCount++;
         player.x.onchange = disappearTextBox("all");
@@ -337,6 +346,13 @@ if (checkOnTile(pubSignObstacle)) {
     ctx.drawImage(pubSignObstacle.spritesheet, pubSignObstacle.x, pubSignObstacle.y, pubSignObstacle.width, pubSignObstacle.height);
 }
 
+if (checkOnTile(travelFriend)) { 
+    drawCharacter(1, 2, travelFriend.x, travelFriend.y, travelFriend.spritesheet);
+    drawCharacter(1, 2, travelFriend.x, travelFriend.y, travelFriendShirt.spritesheet);
+    drawCharacter(1, 2, travelFriend.x, travelFriend.y, travelFriendPants.spritesheet);
+    drawCharacter(1, 2, travelFriend.x, travelFriend.y, travelFriendShoes.spritesheet);
+    drawElement(travelFriendPet.width, travelFriendPet.height, 0, 0, travelFriendPet.x, travelFriendPet.y, travelFriendPet.spritesheet, 0.25 );
+}
 
     //draws player
     drawCharacter( walkIndex, playerDirection, player.x, player.y, player.spritesheet);
@@ -366,7 +382,7 @@ function drawBackground(mapX, mapY) {
     if (mapX == 0 && mapY == 0) {
         drawElement(64, 64, 0, 0, 150, 150, parsnip, 1);
     }
-    else if (mapX == 1 && mapY == 0){
+    else if (mapX == 1 && mapY == 1){
         drawElement(128, 128, 0, 0, 200, 180, produceStall, 2)
         
         drawElement(128, 128, 1, 0, 20, 200, produceStall, 2)

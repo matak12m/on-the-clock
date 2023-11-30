@@ -14,6 +14,11 @@ let closeControlsButton = document.getElementById("close-button")
 closeControlsButton.addEventListener("click", () => { closeControls() })
 
 
+
+let choice1Listener;
+let choice2Listener;
+let choice3Listener;
+
 function closeControls() {
     controlsBox.style.visibility = "hidden";
     closeControlsButton.style.visibility = "hidden";
@@ -24,20 +29,28 @@ function closeControls() {
 
 let dialogueArray = [];
 
+let name;
+let specialTime;
 
 
+textChoice1.addEventListener("click", () => { choice1(name, specialTime) });
+textChoice2.addEventListener("click", () => { choice2(name, specialTime) });
+textChoice3.addEventListener("click", () => { choice3(name, specialTime) });
 
 //handles the textbox visibility and its contents
 
-function showDialogue(name, isAtCampfire, specialTime) {
+let travelFriendWrongTile = "default";
 
+function showDialogue(passedName, isAtCampfire, passedSpecialTime) {
 
+    name = passedName;
+    specialTime = passedSpecialTime;
 
     
 
 
 
-    
+    textContainer.style.visibility = "visible";
     mainTextBox.style.visibility = "visible";
     textChoice1.style.visibility = "hidden";
     textChoice2.style.visibility = "hidden";
@@ -91,6 +104,60 @@ function showDialogue(name, isAtCampfire, specialTime) {
         appearTextBox(0, name, specialTime)
         mainTextBox.textContent = "Well met, stranger!";
     }
+    if (name == "travelFriendPet") { 
+    appearTextBox(0, name, specialtime)
+        mainTextBox.textContent = "Bok Bok"
+
+    }
+
+    if (name == "travelFriend") {
+        if (travelFriendWrongTile == "default") {
+        
+            
+        if (dialogueCount == 0){
+            appearTextBox(1, name, specialTime)
+            dialogueCount++;
+        mainTextBox.textContent = "Hey, the wizard turned my chicken giant!"
+        textChoice2.textContent = "continue"
+        }
+        else if (dialogueCount == 1){
+            appearTextBox(1, name, specialTime)
+            dialogueCount++;
+        mainTextBox.textContent = " I need to lead it to the campfire if we want to have that roast."
+        textChoice2.textContent = "continue"
+        
+        }
+        else if (dialogueCount == 2){
+            appearTextBox(1, name, specialTime)
+            dialogueCount++;
+        mainTextBox.textContent = "I think it knows what's going on, it keeps escaping and coming here."
+        textChoice2.textContent = "continue"
+        
+        }
+        else if (dialogueCount == 3){
+            appearTextBox(1, name, specialTime)
+            dialogueCount++;
+        mainTextBox.textContent = "It's also scared of strangers, so i can't take it through the town "
+        textChoice2.textContent = "continue"
+        
+        }
+        }
+        else if (travelFriendWrongTile == "false"){
+        appearTextBox(3, name, specialTime)
+        mainTextBox.textContent = "I managed to get it over here. Where should I go next?"
+        }
+
+        else if (travelFriendWrongTile == "true") {
+            appearTextBox(3, name, specialTime)
+            mainTextBox.textContent = "the blasted thing got scared and ran away here."
+        }
+        else if (travelFriendWrongTile == "onPurpose") {
+            appearTextBox(3, name, specialTime)
+            mainTextBox.textContent = "Well, I followed the chicken here. What should I do next?"
+        }
+    
+
+    }
 
 }
 
@@ -116,7 +183,6 @@ function appearTextBox(options, name, specialTime) {
         textChoice3.style.visibility = "hidden";
         console.log("1 options")
 
-        textChoice2.addEventListener("click", () => {  choice2(name, specialTime) });
         }
         break;
 
@@ -127,8 +193,6 @@ function appearTextBox(options, name, specialTime) {
         textChoice3.style.visibility = "visible";
         console.log("2 options")
 
-        textChoice1.addEventListener("click", () => {  choice1(name, specialTime) });
-        textChoice3.addEventListener("click", () => {  choice3(name, specialTime) });
         }
         break;
 
@@ -140,14 +204,8 @@ function appearTextBox(options, name, specialTime) {
         console.log("3 options")
 
         
-        textChoice1.addEventListener("click", () => { choice1(name, specialTime) });
-        textChoice2.addEventListener("click", () => { choice2(name, specialTime) });
-        textChoice3.addEventListener("click", () => { choice3(name, specialTime) });
         }
         break;
-        
-        
-        
 
 }
 }
@@ -159,10 +217,8 @@ function appearTextBox(options, name, specialTime) {
 
 //handles getting rid of the textbox elements
 
-
-
-//bug: for some reason the first if in this function always executes, even if the passed value is different
 function disappearTextBox(disappearThis) {
+
     switch(disappearThis){
         case "onlyChoices":
 
@@ -184,9 +240,15 @@ function disappearTextBox(disappearThis) {
 
     
     }
+
 }
 
 
+
+
+let dialogueCount = 0;
+let travelFriendNewX = 2;
+let travelFriendNewY = 2;
 
 
 
@@ -207,7 +269,19 @@ function choice1(name, specialTime){
             pubFriend.specialTime = "morning"
 
             break;
+        case "travelFriend":
+            if (dialogueCount == 5) {
+                disappearTextBox("onlyChoices");
+                mainTextBox.textContent = "alright, I can do that. just give me some time. I'm not sure I can hold it in one place for long, though..."
+                travelFriendNewY--;
+                
+        console.log(travelFriend.mapIndexX + " " + travelFriendNewX)
+        console.log(travelFriend.mapIndexY + " " + travelFriendNewY)
+                
+            }
+            break;
     }
+        
 
  
 
@@ -219,6 +293,53 @@ function choice2(name, specialTime){
         disappearTextBox("onlyChoices");
             mainTextBox.textContent = "you changed the advertisements. People should notice tomorrow."
             pubFriend.specialTime = "afternoon"
+            break;
+
+        case "travelFriend":
+
+            if (dialogueCount == 1){
+                dialogueCount++;
+            mainTextBox.textContent = " I need to lead it to the campfire if we want to have that roast."
+            textChoice2.textContent = "continue"
+            
+            }
+            else if (dialogueCount == 2){
+                dialogueCount++;
+            mainTextBox.textContent = "I think it knows what's going on, it keeps escaping and coming here."
+            textChoice2.textContent = "continue"
+            
+            }
+            else if (dialogueCount == 3){
+                dialogueCount++;
+            mainTextBox.textContent = "It's also scared of strangers, so i can't take it through the town "
+            textChoice2.textContent = "continue"
+            
+            }
+
+
+            else if (dialogueCount == 4){
+                appearTextBox(3, name, specialTime);
+
+                dialogueCount++;
+                if (travelFriendWrongTile == "default") {
+                    mainTextBox.textContent = "Anyways, tell me where to go. I can't see what's ahead."
+                }
+                textChoice1.textContent = "Go North"
+                textChoice2.textContent = "Go West"
+                textChoice3.textContent = "Go back"
+               
+            }
+            else if (dialogueCount == 5) {
+                disappearTextBox("onlyChoices")
+                mainTextBox.textContent = "alright, I can do that. just give me some time. I'm not sure I can hold it in one place for long, though..."
+                travelFriendNewX--;
+                
+        console.log(travelFriend.mapIndexX + " " + travelFriendNewX)
+        console.log(travelFriend.mapIndexY + " " + travelFriendNewY)
+                
+                
+            }
+            break;
 
     }
 
@@ -231,9 +352,26 @@ function choice3(name, specialTime){
         disappearTextBox("onlyChoices");
             mainTextBox.textContent = "you changed the advertisements. People should notice tomorrow."
             pubFriend.specialTime = "evening"
+            break;
 
+        case "travelFriend":
+            if (dialogueCount == 5) {
+                disappearTextBox("onlyChoices");
+                mainTextBox.textContent = "alright, I can do that. just give me some time. I'm not sure I can hold it in one place for long, though..."
+                travelFriendWrongTile = "onPurpose"
+                
+        console.log(travelFriend.mapIndexX + " " + travelFriendNewX)
+        console.log(travelFriend.mapIndexY + " " + travelFriendNewY)
+                
+
+                }
+            break;
     }
 
+
+
 }
+
+
 
 
