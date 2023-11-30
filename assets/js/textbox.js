@@ -61,7 +61,7 @@ function showDialogue(passedName, isAtCampfire, passedSpecialTime) {
         if (!isAtCampfire && time == specialTime) {
         appearTextBox(0, name, specialTime);
 
-        mainTextBox.textContent = "Hey there! sorry, but I'm busy right now. The pub is full of customers!";
+        mainTextBox.textContent = "Hey there! sorry, but I'm busy right now. The market is full of customers!";
             
 
 
@@ -69,7 +69,7 @@ function showDialogue(passedName, isAtCampfire, passedSpecialTime) {
         else if(!isAtCampfire && time != specialTime)  {
         appearTextBox(2, name, specialTime);
 
-        mainTextBox.textContent = "Hey there! I have some free time right now. not a lot of customers.";
+        mainTextBox.textContent = "Hey there! I have some free time right now. not a people around";
         textChoice1.textContent = "come to the campfire!";
         textChoice3.textContent = "see you later.";
 
@@ -77,7 +77,7 @@ function showDialogue(passedName, isAtCampfire, passedSpecialTime) {
         }
         else {
             appearTextBox(0, name, specialTime);
-            mainTextBox.textContent = "I wonder what the others are doing. haven't seen any of them in the pub lately.";
+            mainTextBox.textContent = "I wonder what the others are doing. haven't seen any of them in the market lately.";
         }
 
     }
@@ -88,10 +88,10 @@ function showDialogue(passedName, isAtCampfire, passedSpecialTime) {
         if (time == specialTime){
             appearTextBox(3, name, specialTime)
 
-            mainTextBox.textContent = "the sign advertises meals for the " + pubFriend.specialTime + ". There is an eraser and chalk...";
-            textChoice1.textContent = "advertise breakfasts";
-            textChoice2.textContent = "advertise afternoon tea";
-            textChoice3.textContent = "advertise dinners";
+            mainTextBox.textContent = "the sign advertises market sales for the " + pubFriend.specialTime + ". There is an eraser and chalk...";
+            textChoice1.textContent = "advertise morning bread";
+            textChoice2.textContent = "advertise afternoon shipment";
+            textChoice3.textContent = "advertise evening sellout";
             
         }
         else {

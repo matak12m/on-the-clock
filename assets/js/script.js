@@ -64,6 +64,7 @@ blackSkinIdle.src = "assets/img/character/adult/idle/character_body/character_id
 
 
 
+
 let player = new GameObject("player", brownSkin, 5, 5, 64, 64, 0, 0);
 let playerClothes = new GameObject("playerClothes", overalls)
 let playerShoes = new GameObject("playerShoes", brownShoes)
@@ -73,9 +74,14 @@ let pubFriendShirt = new GameObject("pubFriendShirt", redShirt);
 let pubFriendPants = new GameObject("pubFriendPants", darkBluePants);
 let pubFriendShoes = new GameObject("pubFriendShoes", brownShoes);
 
+let marketCrowd1 = new GameObject("marketCrowd1", brownSkin, 200, 354, 64, 64, 1, 1)
+let marketCrowd2 = new GameObject("marketCrowd2", lightSkin, 236, 327, 64, 64, 1, 1)
+let marketCrowd3 = new GameObject("marketCrowd3", lightSkin, 304, 311, 64, 64, 1, 1)
+let marketCrowdClothes = new GameObject("marketCrowdClothes", overalls)
 
 let pubSign = new GameObject("pubSign", parsnip, 100, 300, 64, 64, 1, 2, "none", "night");
-let pubSignObstacle = new GameObject("pubSignObstacle", chicken, 150, 100, 64, 64, 1, 2, "night");
+let pubSignObstacle = new GameObject("pubSignObstacle", lightSkin, 150, 100, 64, 64, 1, 2, "night");
+let pubSignObstacleClothes = new GameObject("pubSignObstacleClothes", overalls)
 
 let travelFriend = new GameObject("travelFriend", blackSkinIdle, 350, 350, 64, 64, 2, 2, "none", "none")
 let travelFriendShirt = new GameObject("travelFriendShirt", redShirt)
@@ -337,13 +343,26 @@ function draw() {
         drawCharacter(1, 2, pubFriend.x, pubFriend.y, pubFriendPants.spritesheet);
         drawCharacter(1, 2, pubFriend.x, pubFriend.y, pubFriendShoes.spritesheet);
 
+        if (pubFriend.specialTime == time) {
+            //draws a crowd to make the busy time more realistic
+            drawCharacter(4, 3, marketCrowd2.x, marketCrowd2.y, marketCrowd2.spritesheet);
+            drawCharacter(4, 3, marketCrowd2.x, marketCrowd2.y, marketCrowdClothes.spritesheet);
+
+            drawCharacter(4, 3, marketCrowd3.x, marketCrowd3.y, marketCrowd3.spritesheet);
+            drawCharacter(4, 3, marketCrowd3.x, marketCrowd3.y, marketCrowdClothes.spritesheet);
+
+            drawCharacter(4, 3, marketCrowd1.x, marketCrowd1.y, marketCrowd1.spritesheet);
+            drawCharacter(4, 3, marketCrowd1.x, marketCrowd1.y, marketCrowdClothes.spritesheet);
+
+        }
 
     }
 if (checkOnTile(pubSign)) {
     ctx.drawImage(pubSign.spritesheet, pubSign.x, pubSign.y, pubSign.width, pubSign.height);
 }
 if (checkOnTile(pubSignObstacle)) {
-    ctx.drawImage(pubSignObstacle.spritesheet, pubSignObstacle.x, pubSignObstacle.y, pubSignObstacle.width, pubSignObstacle.height);
+    drawCharacter(1, 2, pubSignObstacle.x, pubSignObstacle.y, pubSignObstacle.spritesheet);
+    drawCharacter(1, 2, pubSignObstacle.x, pubSignObstacle.y, pubSignObstacleClothes.spritesheet);
 }
 
 if (checkOnTile(travelFriend)) { 
