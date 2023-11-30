@@ -1,5 +1,3 @@
-let clockHand = document.getElementById("clockHand");
-let clockContainer = document.getElementById("clockContainer");
 
 
 clockContainer.addEventListener("mousedown", mouseDown);

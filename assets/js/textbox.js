@@ -1,14 +1,7 @@
 
 
 
-let textContainer = document.getElementById("textContainer") 
-let mainTextBox = document.getElementById("mainTextBox")
 
-let textChoice1 = document.getElementById("textChoice1")
-let textChoice2 = document.getElementById("textChoice2")
-let textChoice3 = document.getElementById("textChoice3")
-let controlsBox = document.getElementById("controls")
-let closeControlsButton = document.getElementById("close-button")
 
 
 closeControlsButton.addEventListener("click", () => { closeControls() })
