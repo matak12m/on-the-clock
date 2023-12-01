@@ -11,7 +11,7 @@ const moveSpeed =15;
 
 
 
-let interactArray = [pubFriend, pubSign, pubSignObstacle, travelFriend, travelFriendPet, blacksmithStall, blackSmithFriend];
+let interactArray = [pubFriend, pubSign, pubSignObstacle, travelFriend, blacksmithStall, blackSmithFriend, blackSmithMaster];
 
 
 
@@ -60,6 +60,7 @@ function input(event) {
                 break;
             case " ": 
                 gamerInput = new GamerInput("Interact")
+                console.log(dialogueCount)
                 break;
             default: 
                 gamerInput = new GamerInput("None")

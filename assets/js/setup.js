@@ -101,6 +101,7 @@ let blackSmithFriend = new GameObject("blackSmithFriend", lightSkin, 240, 75, 64
 let blackSmithFriendShirt = new GameObject("balckSmithFriendClothes", redShirt);
 let blackSmithFriendPants = new GameObject("balckSmithFriendClothes", darkBluePants);
 let blackSmithFriendShoes = new GameObject("balckSmithFriendClothes", brownShoes);
+let blackSmithMaster = new GameObject("blackSmithMaster", lightSkin, 200, 75, 64, 64, 0, 2, "none", "morning");
 
 
 

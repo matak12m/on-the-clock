@@ -149,42 +149,49 @@ function timeChange(timeDifference) {
 
     pubFriend.mapIndexX = 1;
     pubFriend.mapIndexY = 1;
+    if (travelFriendStarted !="false"){
+    dialogueCount = 4;
+    }
+    if (travelFriendStarted != "false") {
+        for (i = 0; i <timeDifference; i++) {
 
-
-    for (i = 0; i <timeDifference; i++) {
-
-        if (travelFriendNewX != travelFriend.mapIndexX || travelFriendNewY !=travelFriend.mapIndexY) { //the friend didnt move
-            if (travelFriendNewX < 0 || travelFriendNewY< 0)
-            {
-                travelFriendWrongTile = "true";
-                moveChickenBack();
-            }
-            else if ((travelFriendNewX == 2 && travelFriendNewY == 1) || (travelFriendNewX == 2 && travelFriendNewY == 0)   //checks if travelfriend is going onto a valid tile - a tile with no people, and if the player told them to move
-                ||(travelFriendNewX == 1 && travelFriendNewY == 0) || (travelFriendNewX == 0 && travelFriendNewY == 0)) {
-
-                    travelFriend.mapIndexX = travelFriendNewX;
-                    travelFriend.mapIndexY = travelFriendNewY;
-                    travelFriendWrongTile = "false";
-                    
+            if (travelFriendNewX != travelFriend.mapIndexX || travelFriendNewY !=travelFriend.mapIndexY ) { //the friend didnt move
+                if (travelFriendNewX < 0 || travelFriendNewY< 0)
+                {
+                    travelFriendWrongTile = "true";
+                    moveChickenBack();
                 }
+                else if ((travelFriendNewX == 2 && travelFriendNewY == 1) || (travelFriendNewX == 2 && travelFriendNewY == 0)   //checks if travelfriend is going onto a valid tile - a tile with no people, and if the player told them to move
+                    ||(travelFriendNewX == 1 && travelFriendNewY == 0) || (travelFriendNewX == 0 && travelFriendNewY == 0)) {
+
+                        travelFriend.mapIndexX = travelFriendNewX;
+                        travelFriend.mapIndexY = travelFriendNewY;
+                        travelFriendWrongTile = "false";
+                        
+                    }
+                else {
+                    travelFriendWrongTile ="true";
+                    moveChickenBack();
+                }
+            }   
             else {
+
                 travelFriendWrongTile ="true";
                 moveChickenBack();
+                
+                }
             }
-        }   
-        else {
 
-            travelFriendWrongTile ="true";
-            moveChickenBack();
-               
-            }
-        }
-
-        travelFriendPet.mapIndexX = travelFriend.mapIndexX;
-        travelFriendPet.mapIndexY = travelFriend.mapIndexY;
-        
-        
-    
+            travelFriendPet.mapIndexX = travelFriend.mapIndexX;
+            travelFriendPet.mapIndexY = travelFriend.mapIndexY;
+            
+    }
+    if (time != blackSmithFriend.specialTime){
+    blackSmithFriend.mapIndexX = 0;
+    blackSmithFriend.mapIndexY = 2;
+    blackSmithDialogueCount = 0;
+    }
+  
 
 }
 
