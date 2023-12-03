@@ -89,7 +89,7 @@ div {
 
 #clock-canvas-container {
     width: 100%;
-    height: 35vw;
+    height: 50%;
 
     border-radius: 0;
     border-color: none;
@@ -103,7 +103,7 @@ div {
 
 #text-box-container{
     width: 100%;
-    height: 20vw;
+    height: 50%;
 
     border-radius:0;
     border-color: none;
