@@ -5,7 +5,7 @@ canvas.height = 500;
 ctx.imageSmoothingEnabled = false;  //makes the pixelart assets crisp
 
 
-const moveSpeed =15;
+const moveSpeed =5;
 
 
 
@@ -77,6 +77,7 @@ let frameCount = 0;
 let playerDirection = 0;
 const playerCollisionX = -50;
 const playerCollisionY = -50;
+
 function update() {
 
     if (gamerInput != "None"){
@@ -88,7 +89,11 @@ function update() {
         switchMapTile();
     }
  
-    
+    if (pubFriend.mapIndexX == 0 && pubFriend.mapIndexY == 0 && blackSmithFriend.mapIndexX == 0 && blackSmithFriend.mapIndexY == 0
+        && travelFriend.mapIndexX == 0 && travelFriend.mapIndexY == 0 && player.mapIndexX == 0 && player.mapIndexY == 0 && gameOver == "false") {
+            endOfGame();
+            
+    }
 
 }
 
@@ -306,6 +311,11 @@ if (checkOnTile(blackSmithFriend)) {
     drawCharacter( walkIndex, playerDirection, player.x, player.y, playerShoes.spritesheet);
 
 
+if (gameOver == "true") {
+    ctx.fillStyle = "black";
+        ctx.globalAlpha = (fadeOutCounter * 0.1);
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
 
     //ctx.drawImage(chickenObj.spritesheet, chichenObj.x, chickenObj.y, chickenObj.width, chickenObj.height)
 
@@ -351,11 +361,38 @@ function drawBackground(mapX, mapY) {
 //the main gameloop
 function gameloop() {
 
-    update();
-    draw();
-    
+    if (gameOver == "false") {
+        update();
+    }
+     
+     draw();
+     
     window.requestAnimationFrame(gameloop);
     
+}
+
+let gameOver = "false"
+let fadeOutCounter = 0;
+
+function endOfGame() {
+    
+    setInterval(() => {fadeOut()}, 1000);
+    
+}
+
+
+function fadeOut() {
+    gameOver = "true";
+    
+    if (fadeOutCounter <= 10) {
+        
+        fadeOutCounter ++;
+    }
+    else {
+        showDialogue("EndOfGame", "none")
+    }
+    
+
 }
 
 

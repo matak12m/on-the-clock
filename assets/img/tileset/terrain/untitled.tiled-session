@@ -1,0 +1,24 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "smallburg_terrain_spring.tsx",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "smallburg_terrain_spring.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "C:/Users/Mat/Desktop/UI prog projects/assets/img/tileset/terrain",
+    "openFiles": [
+        "smallburg_terrain_spring.tsx"
+    ],
+    "project": "untitled.tiled-project",
+    "recentFiles": [
+        "smallburg_terrain_spring.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx"
+}

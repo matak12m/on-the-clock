@@ -70,7 +70,9 @@ function mouseUp() {
             }   
             
         }
+        if (gameOver == "false"){
         timeChange(timeDifference);
+        }
     }
 }
 
@@ -149,9 +151,7 @@ function timeChange(timeDifference) {
 
     pubFriend.mapIndexX = 1;
     pubFriend.mapIndexY = 1;
-    if (travelFriendStarted !="false"){
-    dialogueCount = 4;
-    }
+    
     if (travelFriendStarted != "false") {
         for (i = 0; i <timeDifference; i++) {
 
@@ -186,10 +186,11 @@ function timeChange(timeDifference) {
             travelFriendPet.mapIndexY = travelFriend.mapIndexY;
             
     }
-    if (time != blackSmithFriend.specialTime){
+    if (time != blackSmithFriend.specialTime && time != "morning"){
     blackSmithFriend.mapIndexX = 0;
     blackSmithFriend.mapIndexY = 2;
     blackSmithDialogueCount = 0;
+    blackSmithFriend.specialTime = "none";
     }
   
 

@@ -50,6 +50,14 @@ function showDialogue(passedName, isAtCampfire, passedSpecialTime) {
     textChoice2.style.visibility = "hidden";
     textChoice3.style.visibility = "hidden";
    
+    if (objectName == "EndOfGame") {
+        appearTextBox(1, objectName, specialTime);
+        mainTextBox.textContent = "You managed to gather everyone at the campfire. It took a lot of work, but it was worth it! you spent the night having a bonfire. \n \n Thank you for playing!";
+        textChoice2.textContent = "Exit Game";
+
+    }
+
+
     //pub friend textboxes
     if (objectName == "pubFriend"){
         if (!isAtCampfire && time == specialTime) {
@@ -105,72 +113,69 @@ function showDialogue(passedName, isAtCampfire, passedSpecialTime) {
     }
 
     //travelfriend textboxes
-    if (objectName == "travelFriend") {
-        if (travelFriendStarted = "false") {
-        
+    if (objectName == "travelFriendPet") { 
+        appearTextBox(0, name, specialtime)
+            mainTextBox.textContent = "Bok Bok"
+    
+        }
+    
+        if (objectName == "travelFriend") {
+            if (travelFriendWrongTile == "default") {
             
-        if (dialogueCount == 0){
-            appearTextBox(1, objectName, specialTime)
-            dialogueCount++;
-        mainTextBox.textContent = "Hey, the wizard turned my chicken giant!"
-        textChoice2.textContent = "continue"
-        }
-        else if (dialogueCount == 1){
-            appearTextBox(1, objectName, specialTime)
-            dialogueCount++;
-        mainTextBox.textContent = " I need to lead it to the campfire if we want to have that roast."
-        textChoice2.textContent = "continue"
-        
-        }
-        else if (dialogueCount == 2){
-            appearTextBox(1, objectName, specialTime)
-            dialogueCount++;
-        mainTextBox.textContent = "I think it knows what's going on, it keeps escaping and coming here."
-        textChoice2.textContent = "continue"
-        
-        }
-        else if (dialogueCount == 3){
-            appearTextBox(1, objectName, specialTime)
-            dialogueCount++;
-        mainTextBox.textContent = "It's also scared of strangers, so i can't take it through the town "
-        textChoice2.textContent = "continue"
-        }
-        else if (dialogueCount > 3) {
-            choice2(objectName, specialTime)
-        }
-        else if (travelFriendWrongTile == "false"){
-        appearTextBox(3, objectName, specialTime)
-        mainTextBox.textContent = "I managed to get it over here. Where should I go next?"
-        }
-
-        else if (travelFriendWrongTile == "true") {
-            appearTextBox(3, objectName, specialTime)
-            mainTextBox.textContent = "the blasted thing got scared and ran away here."
-        }
-        else if (travelFriendWrongTile == "onPurpose") {
-            appearTextBox(3, objectName, specialTime)
-            mainTextBox.textContent = "Well, I followed the chicken here. What should I do next?"
-        }
-        }
-        else if (travelFriendStarted=="true"){
-            dialogueCount = 4;
-            if (travelFriendWrongTile == "false"){
-            
-                appearTextBox(3, objectName, specialTime)
-                mainTextBox.textContent = "I managed to get it over here. Where should I go next?"
-                }
-        
-                else if (travelFriendWrongTile == "true") {
-                    
-                    appearTextBox(3, objectName, specialTime)
-                    mainTextBox.textContent = "the blasted thing got scared and ran away here."
-                }
-                else if (travelFriendWrongTile == "onPurpose") {
-                    
-                    appearTextBox(3, objectName, specialTime)
-                    mainTextBox.textContent = "Well, I followed the chicken here. What should I do next?"
-                }
+                
+            if (dialogueCount == 0){
+                appearTextBox(1, name, specialTime)
+                dialogueCount++;
+            mainTextBox.textContent = "Hey, the wizard turned my chicken giant!"
+            textChoice2.textContent = "continue"
             }
+            else if (dialogueCount == 1){
+                appearTextBox(1, name, specialTime)
+                dialogueCount++;
+            mainTextBox.textContent = " I need to lead it to the campfire if we want to have that roast."
+            textChoice2.textContent = "continue"
+            
+            }
+            else if (dialogueCount == 2){
+                appearTextBox(1, name, specialTime)
+                dialogueCount++;
+            mainTextBox.textContent = "I think it knows what's going on, it keeps escaping and coming here."
+            textChoice2.textContent = "continue"
+            
+            }
+            else if (dialogueCount >= 3){
+                appearTextBox(1, name, specialTime)
+                dialogueCount++;
+            mainTextBox.textContent = "It's also scared of strangers, so i can't take it through the town "
+            textChoice2.textContent = "continue"
+            
+            }
+            }
+            else if (travelFriendWrongTile == "false"){
+            appearTextBox(3, objectName, specialTime)
+            mainTextBox.textContent = "I managed to get it over here. Where should I go next?"
+                textChoice1.textContent = "Go North"
+                textChoice2.textContent = "Go West"
+                textChoice3.textContent = "Go back"
+            }
+    
+            else if (travelFriendWrongTile == "true") {
+                appearTextBox(3, objectName, specialTime)
+                mainTextBox.textContent = "the blasted thing got scared and ran away here."
+                textChoice1.textContent = "Go North"
+                textChoice2.textContent = "Go West"
+                textChoice3.textContent = "Go back"
+            }
+            else if (travelFriendWrongTile == "onPurpose") {
+                appearTextBox(3, objectName, specialTime)
+                mainTextBox.textContent = "Well, I followed the chicken here. What should I do next?"
+                textChoice1.textContent = "Go North"
+                textChoice2.textContent = "Go West"
+                textChoice3.textContent = "Go back"
+            }
+        
+    
+        
     }
 
     if (objectName == "blackSmithFriend") {
@@ -318,18 +323,20 @@ function choice1(objectName, specialTime){
             pubFriend.specialTime = "morning"
 
             break;
-        case "travelFriend":
-            if (dialogueCount == 5) {
-                disappearTextBox("onlyChoices");
-                mainTextBox.textContent = "alright, I can do that. just give me some time. I'm not sure I can hold it in one place for long, though..."
-                travelFriendNewY--;
-                
-                
-        console.log(travelFriend.mapIndexX + " " + travelFriendNewX)
-        console.log(travelFriend.mapIndexY + " " + travelFriendNewY)
+            case "travelFriend":
+                if (dialogueCount >= 5) {
+                    disappearTextBox("onlyChoices");
+                    mainTextBox.textContent = "alright, I can do that. just give me some time. I'm not sure I can hold it in one place for long, though..."
+                    travelFriendNewY = travelFriend.mapIndexY - 1;
+                    travelFriendNewX = travelFriend.mapIndexX;
+                    
+            console.log(travelFriend.mapIndexX + " " + travelFriendNewX)
+            console.log(travelFriend.mapIndexY + " " + travelFriendNewY)
+                    
                 
             }
             break;
+
         case "blackSmithFriend":
             disappearTextBox("onlyChoices");
             mainTextBox.textContent = "heading there now."
@@ -351,7 +358,7 @@ function choice2(objectName, specialTime){
             pubFriend.specialTime = "afternoon"
             break;
 
-        case "travelFriend":
+            case "travelFriend":
 
             if (dialogueCount == 1){
                 dialogueCount++;
@@ -374,31 +381,32 @@ function choice2(objectName, specialTime){
 
 
             else if (dialogueCount == 4){
-                appearTextBox(3, objectName, specialTime);
-                blackSmithDialogueCount++;
-                
+                appearTextBox(3, name, specialTime);
+
+                dialogueCount++;
                 if (travelFriendWrongTile == "default") {
                     mainTextBox.textContent = "Anyways, tell me where to go. I can't see what's ahead."
                 }
-                travelFriendStarted = "true";
+                travelFriendStarted = "true"
                 textChoice1.textContent = "Go North"
                 textChoice2.textContent = "Go West"
                 textChoice3.textContent = "Go back"
                
             }
-            else if (dialogueCount == 5) {
+            else if (dialogueCount >= 5) {
                 disappearTextBox("onlyChoices")
                 mainTextBox.textContent = "alright, I can do that. just give me some time. I'm not sure I can hold it in one place for long, though..."
-                travelFriendNewX--;
-                
-                
+                travelFriendNewX = travelFriend.mapIndexX - 1;
+                travelFriendNewY = travelFriend.mapIndexY;
                 
         console.log(travelFriend.mapIndexX + " " + travelFriendNewX)
         console.log(travelFriend.mapIndexY + " " + travelFriendNewY)
                 
                 
             }
-            break;
+            break;        
+                
+
 
 
         case "blackSmithFriend":
@@ -426,6 +434,12 @@ function choice2(objectName, specialTime){
 
                 
             }
+            break;
+
+        case "EndOfGame":
+            
+        window.location.replace("index.html");
+        
     }
 
     
@@ -439,18 +453,17 @@ function choice3(objectName, specialTime){
             pubFriend.specialTime = "evening"
             break;
 
-        case "travelFriend":
-            if (dialogueCount == 5) {
-                disappearTextBox("onlyChoices");
-                mainTextBox.textContent = "alright, I can do that. just give me some time. I'm not sure I can hold it in one place for long, though..."
-                travelFriendWrongTile = "onPurpose"
-                
-                
-        console.log(travelFriend.mapIndexX + " " + travelFriendNewX)
-        console.log(travelFriend.mapIndexY + " " + travelFriendNewY)
-                
-
-                }
+            case "travelFriend":
+                if (dialogueCount >= 5) {
+                    disappearTextBox("onlyChoices");
+                    mainTextBox.textContent = "alright, I can do that. just give me some time. I'm not sure I can hold it in one place for long, though..."
+                    travelFriendWrongTile = "onPurpose"
+                    
+            console.log(travelFriend.mapIndexX + " " + travelFriendNewX)
+            console.log(travelFriend.mapIndexY + " " + travelFriendNewY)
+                    
+    
+                    }
             break;
     }
 
