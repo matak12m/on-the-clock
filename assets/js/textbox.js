@@ -4,7 +4,7 @@
 
 
 
-closeControlsButton.addEventListener("click", () => { closeControls() })
+
 
 
 
@@ -25,6 +25,7 @@ let dialogueArray = [];
 let objectName;
 let specialTime;
 let blackSmithDialogueCount = 0;
+
 
 textChoice1.addEventListener("click", () => { choice1(objectName, specialTime) });
 textChoice2.addEventListener("click", () => { choice2(objectName, specialTime) });

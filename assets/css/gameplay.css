@@ -17,6 +17,7 @@ canvas {
 body{
     align-items: center;
     background-color: lightblue;
+    position:absolute;
 }
 
 
@@ -126,4 +127,40 @@ div {
     height: 40px;
     margin: auto;
 
+}
+
+
+.button {
+    background-color:sandybrown;
+    border-color: saddlebrown;
+    border-style: solid;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    font-size: 28px;
+    }
+    
+ 
+    
+    .button:active {
+    box-shadow: 0 5px #3D3D3D;
+    transform: translateY(5px);
+    }
+    
+    .pressed{
+    box-shadow: 0 5px #3D3D3D;
+    transform: translateY(5px);    
+    }
+    
+    
+    .round {
+    border-radius: 50%;
+    }
+    .interact {
+    word-wrap: normal;
+    }
+
+table{
+    margin: auto;
+    padding-bottom: 10px;
 }

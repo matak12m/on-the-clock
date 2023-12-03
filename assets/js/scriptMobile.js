@@ -33,60 +33,11 @@ let interactArray = [pubFriend, pubSign, pubSignObstacle, travelFriend, blacksmi
 
 
 
-//function that hold the current input action as a string
-function GamerInput(input){
-    this.action = input;
-}
 
-//empty on default
-let gamerInput = new GamerInput("None");
 
-//handles inputs
-function input(event) {
 
-    //console.log(event);
-    //console.log("Event type: " + event.type);
-   
-    //set the string to a different value depending on the event
-    if (event.type === "keydown") {
-        
-        switch (event.key) {
-            case "w":
-                gamerInput = new GamerInput("Up")
-                break;
-            case "W":
-                gamerInput = new GamerInput("Up")
-                break;
-            case "a": 
-                gamerInput = new GamerInput("Left")
-                break;
-            case "A": 
-                gamerInput = new GamerInput("Left")
-                break;
-            case "s":
-                gamerInput = new GamerInput("Down")
-                break;
-            case "S":
-                gamerInput = new GamerInput("Down")
-                break;
-            case "d":
-                gamerInput = new GamerInput("Right")
-                break;
-            case "D":
-                gamerInput = new GamerInput("Right")
-                break;
-            case " ": 
-                gamerInput = new GamerInput("Interact")
-                console.log(dialogueCount)
-                break;
-            default: 
-                gamerInput = new GamerInput("None")
-        }
-    } else {
-        gamerInput = new GamerInput("None");
-    }
 
-}
+
 
 //updates the canvas, in this case only moves the player
 
@@ -97,9 +48,10 @@ const playerCollisionY = -50;
 
 function update() {
 
-    if (gamerInput != "None"){
-    manageInput();
+    if (InputFromPlayer != 0) {
+        manageInput(InputFromPlayer);
     }
+    
     
 
     if (player.x <playerCollisionX || player.y<playerCollisionY || player.x + player.width >= canvas.width || player.y + player.height >= canvas.height ){  //checks for collision with canvas sides
@@ -119,39 +71,43 @@ function update() {
 
 
 
-
+let InputFromPlayer = 0;
 let canInteract = 1;
-function manageInput() {
-    if (gamerInput.action === "Up" && player.y > playerCollisionY - 5) {    //moves the player, changes the direction, which is used for animating the farmer, and upticks framecount if the player is moving
+function manageInput(GameInput) {
+    if (GameInput == 1 && player.y > playerCollisionY - 5) {    //moves the player, changes the direction, which is used for animating the farmer, and upticks framecount if the player is moving
 
         player.y -= moveSpeed;
         playerDirection = 3;
         frameCount++;
         player.y.onchange = disappearTextBox("all");
+        InputFromPlayer = 1;
         
-    } else if (gamerInput.action === "Down" && player.y + player.height < canvas.height) {
+    } else if (GameInput == 2 && player.y + player.height < canvas.height) {
 
         player.y += moveSpeed;
         playerDirection = 2;
         frameCount++;
         player.y.onchange = disappearTextBox("all");
+        InputFromPlayer = 2;
         
-    } else if (gamerInput.action === "Left" && player.x > playerCollisionX - 5) {
+    } else if (GameInput == 3 && player.x > playerCollisionX - 5) {
 
         player.x -= moveSpeed;
         playerDirection = 1;
         frameCount++;
         player.x.onchange = disappearTextBox("all");
+        InputFromPlayer = 3;
         
-    } else if (gamerInput.action === "Right" && player.x + player.width < canvas.width) {
+    } else if (GameInput == 4 && player.x + player.width < canvas.width) {
 
         player.x += moveSpeed;
         playerDirection = 0;
         frameCount++;
         player.x.onchange = disappearTextBox("all");
+        InputFromPlayer = 4;
         
     } 
-    else if(gamerInput.action === "Interact" && canInteract == 1) {
+    else if(GameInput == 5 && canInteract == 1) {
         for (i = 0; i < interactArray.length; i++){
             if (interactArray[i].mapIndexX == player.mapIndexX && interactArray[i].mapIndexY == player.mapIndexY && isCollide(interactArray[i], player) && interactArray[i].absenceTime != time ) {
                 interact(interactArray[i]);
@@ -161,10 +117,11 @@ function manageInput() {
             }
         }
     }
-    else if (gamerInput.action == "None") {
+    else if (GameInput == 0) {
         walkIndex = 1;
         frameCount = 0;
         canInteract = 1;
+        InputFromPlayer = 0;
     }
 
     if (frameCount > 5) {
@@ -416,6 +373,3 @@ function fadeOut() {
 window.requestAnimationFrame(gameloop); //calls the gameloop as long as the window is open
 
 
-window.addEventListener('keydown', input);
-
-window.addEventListener('keyup', input);
