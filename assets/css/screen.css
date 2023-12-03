@@ -1,26 +1,48 @@
 
 form {
-    float: left;
-    width: 300;
-    height: 100;
+    border-color: saddlebrown;
+    background-color: sandybrown;
+    font-size: 25px;
+    text-align: center;
+    border-radius: 10px;
+    border-style: solid;
+    word-wrap: normal;
+    margin:auto;
+
+    width: 50%;
+    height: 100%;
 }
 
-button{
-    width:100px;
-    height:20px;
+body {
+    background-color: lightblue;
+}
+
+
+div {
+    border-color: saddlebrown;
+    background-color: sandybrown;
+    font-size: 25px;
+    text-align: center;
+    border-radius: 10px;
+    border-style: solid;
+    word-wrap: normal;
+
 }
 
 .mobileButton{
-    background-color: palegreen;
-    width: 300;
-    height:100;
+    
+width: 20%vw;
+height: 10%vw;
+    
 
 }
 
 .browserButton{
-    background-color: tomato;
-    width:300;
-    height:100;
+    
+    width: 20%vw;
+    height: 10%vw;
 
 }
+
+
 
