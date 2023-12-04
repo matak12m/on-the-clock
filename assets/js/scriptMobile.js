@@ -35,8 +35,33 @@ let interactArray = [pubFriend, pubSign, pubSignObstacle, travelFriend, blacksmi
 
 
 
+//listeners for buttons - unfortunately, "ontouchstart" doesnt exist in html.
+//have to declare these listeners in here instead of setup.js because they're exclusive for the mobile version
+
+let upButton = document.getElementById("upButton")
+let downButton = document.getElementById("downButton")
+let leftButton = document.getElementById("leftButton")
+let rightButton = document.getElementById("rightButton")
+let interactButton = document.getElementById("interactButton")
 
 
+upButton.addEventListener("touchstart", () => {manageInput(1)})
+downButton.addEventListener("touchstart", () => {manageInput(2)})
+leftButton.addEventListener("touchstart", () => {manageInput(3)})
+rightButton.addEventListener("touchstart", () => {manageInput(4)})
+interactButton.addEventListener("touchstart", () => {manageInput(5)})
+
+upButton.addEventListener("touchend", () => {manageInput(0)})
+downButton.addEventListener("touchend", () => {manageInput(0)})
+leftButton.addEventListener("touchend", () => {manageInput(0)})
+rightButton.addEventListener("touchend", () => {manageInput(0)})
+interactButton.addEventListener("touchend", () => {manageInput(0)})
+
+upButton.addEventListener("touchcancel", () => {manageInput(0)})
+downButton.addEventListener("touchcancel", () => {manageInput(0)})
+leftButton.addEventListener("touchcancel", () => {manageInput(0)})
+rightButton.addEventListener("touchcancel", () => {manageInput(0)})
+interactButton.addEventListener("touchcancel", () => {manageInput(0)})
 
 
 //updates the canvas, in this case only moves the player

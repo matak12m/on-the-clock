@@ -5,6 +5,11 @@ clockContainer.addEventListener("mouseup", mouseUp)
 clockHand.addEventListener("mouseover", preventRotation);
 clockHand.addEventListener("mouseout", preventRotationStop)
 
+clockContainer.addEventListener("touchstart", mouseDown);
+clockContainer.addEventListener("touchend", mouseUp)
+clockHand.addEventListener("touchstart", preventRotation);
+clockHand.addEventListener("touchend", preventRotationStop)
+
 
 
 let canRotate = 1;
