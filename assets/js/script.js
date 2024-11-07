@@ -93,14 +93,15 @@ function input(event) {
 
 let frameCount = 0;
 let playerDirection = 0;
-const playerCollisionX = -50;
-const playerCollisionY = -50;
+let playerCollisionX = -50;
+let playerCollisionY = -50;
 
 function update() {
 
     if (gamerInput != "None"){
     manageInput();
     }
+    
     
 
     if (player.x <playerCollisionX || player.y<playerCollisionY || player.x + player.width >= canvas.width || player.y + player.height >= canvas.height ){  //checks for collision with canvas sides
@@ -313,7 +314,7 @@ if (checkOnTile(travelFriend)) {
     drawCharacter(1, 2, travelFriend.x, travelFriend.y, travelFriendShirt.spritesheet);
     drawCharacter(1, 2, travelFriend.x, travelFriend.y, travelFriendPants.spritesheet);
     drawCharacter(1, 2, travelFriend.x, travelFriend.y, travelFriendShoes.spritesheet);
-    drawElement(travelFriendPet.width, travelFriendPet.height, 0, 0, travelFriendPet.x, travelFriendPet.y, travelFriendPet.spritesheet, 0.25 );
+    drawElement(travelFriendPet.width, travelFriendPet.height, 0, 0, travelFriendPet.x, travelFriendPet.y, travelFriendPet.spritesheet, 1.8 );
 }
 
 if (checkOnTile(blackSmithFriend)) {
@@ -336,8 +337,22 @@ if (gameOver == "true") {
 }
 
     //ctx.drawImage(chickenObj.spritesheet, chichenObj.x, chickenObj.y, chickenObj.width, chickenObj.height)
-
+     
     
+    //time based filters
+     if (time == "morning") {
+        drawElement(500, 500, 0, 0, 0, 0, morningOverlay, 1);
+    }
+    else if (time == "day") {
+
+    }
+    else if ( time == "evening") {
+        drawElement(500, 500, 0, 0, 0, 0, eveningOverlay, 1);
+    }
+    else if (time == "night") {
+        drawElement(500, 500, 0, 0, 0, 0, nightOverlay, 1);
+    }
+
 }
 
 //returns true if the player is on the same tile as the object
@@ -353,16 +368,35 @@ function checkOnTile(object) {
 
 //draws the background of the tile the player is on.
 function drawBackground(mapX, mapY) {
+
+        drawElement(500, 500, mapX, mapY, 0, 0, mapTexture, 1);
+   
     if (mapX == 0 && mapY == 0) {
-        drawElement(64, 64, 0, 0, 150, 150, campFireSprite, 1);
+     
+
+        drawElement(64, 64, 0, 0, 165, 200, campFireSprite, 3);
     }
-    else if (mapX == 1 && mapY == 1){
-        drawElement(128, 128, 0, 0, 200, 180, produceStall, 2)
+    else if (mapX == 1 && mapY == 0) {
+     
         
-        drawElement(128, 128, 1, 0, 20, 200, produceStall, 2)
+    }
+
+    else if (mapX == 2 && mapY == 0) {
+
+    }
+    
+   else if (mapX == 1 && mapY == 1){
+       
+        drawElement(128, 128, 0, 0, 200, 20, produceStall, 2)
+        
+        drawElement(128, 128, 1, 0, 0, 40, produceStall, 2)
+    }
+    else if (mapX == 2 && mapY == 1){
+
     }
     else if (mapX == 0 && mapY ==2) {
-        drawElement(128, 128, 0, 0, 100, 0, blacksmithStall, 2)
+     
+        drawElement(128, 128, 0, 0, 250, 0, blacksmithStall, 2)
     }
     else if (mapX == 1 && mapY == 2) {
         drawElement(176, 176, 0, 1, 250, -100, houseWalls, 2);
@@ -370,8 +404,21 @@ function drawBackground(mapX, mapY) {
         drawElement(88, 90, 8, 4, 0, 0, houseWalls, 2);
         drawElement(80, 90, 8,6, 0, -30, roofs, 2);
     }
+    
 
+    //time based filters
+    if (time == "morning") {
+        drawElement(500, 500, 0, 0, 0, 0, morningOverlay, 1);
+    }
+    else if (time == "day") {
 
+    }
+    else if ( time == "evening") {
+        drawElement(500, 500, 0, 0, 0, 0, eveningOverlay, 1);
+    }
+    else if (time == "night") {
+        drawElement(500, 500, 0, 0, 0, 0, nightOverlay, 1);
+    }
 }
 
 

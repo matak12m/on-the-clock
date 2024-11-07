@@ -10,6 +10,11 @@ let blacksmithStall = new Image();
 let roofs = new Image();
 let houseWalls = new Image();
 
+let mapTexture = new Image();
+let morningOverlay = new Image();
+let eveningOverlay = new Image();
+let nightOverlay = new Image();
+
 
 
 //character spritesheets
@@ -23,11 +28,11 @@ let blackSkinIdle = new Image();
 
 
 
-chicken.src = "assets/img/chicken.png"
+chicken.src = "assets/img/chicken_walk.png"
 parsnip.src = "assets/img/parsnip.png"
 
 campFireSprite.src = "assets/img/Campfire.png"
-SignSprite.src = "assets/img/Wood_Sign.png"
+SignSprite.src = "assets/img/signpost.png"
 
 produceStall.src = "assets/img/commerce/marketplace/commerce_marketplace_stall.png"
 blacksmithStall.src = "assets/img/commerce/gear/waepon_gear_stall.png"
@@ -46,8 +51,12 @@ roofs.src = "assets/img/housing/housing_system_roofs.png"
 houseWalls.src = "assets/img/housing/house_building_assets.png"
 
 
+//background grass and paths
 
-
+mapTexture.src = "assets/img/whole_map.png"
+morningOverlay.src = "assets/img/morning_filter.png"
+eveningOverlay.src = "assets/img/evening_filter.png"
+nightOverlay.src = "assets/img/night_filter.png"
 
 
 
@@ -72,18 +81,18 @@ function GameObject(name, spritesheet, x, y, width, height, mapIndexX, mapIndexY
 
 
 
-let player = new GameObject("player", brownSkin, 5, 5, 64, 64, 0, 0);
+let player = new GameObject("player", brownSkin, 135, 125, 64, 64, 0, 0);
 let playerClothes = new GameObject("playerClothes", overalls)
 let playerShoes = new GameObject("playerShoes", brownShoes)
 
-let pubFriend = new GameObject("pubFriend", lightSkin, 220, 300, 64, 64, 1, 1, "night", "morning");
+let pubFriend = new GameObject("pubFriend", lightSkin, 220, 150, 64, 64, 1, 1, "night", "morning");
 let pubFriendShirt = new GameObject("pubFriendShirt", redShirt);
 let pubFriendPants = new GameObject("pubFriendPants", darkBluePants);
 let pubFriendShoes = new GameObject("pubFriendShoes", brownShoes);
 
-let marketCrowd1 = new GameObject("marketCrowd1", brownSkin, 200, 354, 64, 64, 1, 1)
-let marketCrowd2 = new GameObject("marketCrowd2", lightSkin, 236, 327, 64, 64, 1, 1)
-let marketCrowd3 = new GameObject("marketCrowd3", lightSkin, 304, 311, 64, 64, 1, 1)
+let marketCrowd1 = new GameObject("marketCrowd1", brownSkin, 200, 204, 64, 64, 1, 1)
+let marketCrowd2 = new GameObject("marketCrowd2", lightSkin, 236, 177, 64, 64, 1, 1)
+let marketCrowd3 = new GameObject("marketCrowd3", lightSkin, 304, 161, 64, 64, 1, 1)
 let marketCrowdClothes = new GameObject("marketCrowdClothes", overalls)
 
 let pubSign = new GameObject("pubSign", SignSprite, 100, 300, 64, 64, 1, 2, "none", "night");
@@ -97,11 +106,11 @@ let travelFriendShoes = new GameObject("travelFriendShoes", brownShoes)
 
 let travelFriendPet = new GameObject("travelFriendPet", chicken, 350, 375, 180, 180, 2, 2, "none", "none");
 
-let blackSmithFriend = new GameObject("blackSmithFriend", lightSkin, 240, 75, 64, 64, 0, 2, "morning", "none");
+let blackSmithFriend = new GameObject("blackSmithFriend", lightSkin, 390, 75, 64, 64, 0, 2, "morning", "none");
 let blackSmithFriendShirt = new GameObject("balckSmithFriendClothes", redShirt);
 let blackSmithFriendPants = new GameObject("balckSmithFriendClothes", darkBluePants);
 let blackSmithFriendShoes = new GameObject("balckSmithFriendClothes", brownShoes);
-let blackSmithMaster = new GameObject("blackSmithMaster", lightSkin, 200, 75, 64, 64, 0, 2, "none", "morning");
+let blackSmithMaster = new GameObject("blackSmithMaster", lightSkin, 350, 75, 64, 64, 0, 2, "none", "morning");
 
 
 
