@@ -10,7 +10,7 @@ clockContainer.addEventListener("touchend", mouseUp)
 clockHand.addEventListener("touchstart", preventRotation);
 clockHand.addEventListener("touchend", preventRotationStop)
 
-
+let clockSize = clockContainer.clientWidth;
 
 let canRotate = 1;
 let degrees = 0; //global so it can be read by the gameplay script.
@@ -114,8 +114,10 @@ function rotate() {
 
 //calculates the angle the clockhand should be rotated to.
 function getAngleDegrees() {
-    const clockCenterX = 100;
-    const clockCenterY = 100;
+    clockSize = clockContainer.clientWidth;
+    let clockCenterX = clockSize/2;
+    let clockCenterY = clockSize/2;
+    //console.log(clockSize)
 
     let mouseX = event.offsetX;
     let mouseY = event.offsetY;
