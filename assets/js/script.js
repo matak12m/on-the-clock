@@ -23,7 +23,7 @@ canvas.height = 500;
 ctx.imageSmoothingEnabled = false;  //makes the pixelart assets crisp
 
 
-const moveSpeed =15;
+const moveSpeed =5;
 
 
 
